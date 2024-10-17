@@ -1,0 +1,916 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>IV Stack. Deque. Queue.</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1132e807-d74f-8067-8848-e498809fcaef" class="page sans"><header><h1 class="page-title">IV Stack. Deque. Queue.</h1><p class="page-description"></p></header><div class="page-body"><nav id="1142e807-d74f-8084-b755-cd67d47946a1" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1142e807-d74f-804a-a686-e3ab75f3d10d">Stack</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1142e807-d74f-8000-b451-df1365f154d6">Идея + описание</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1142e807-d74f-8008-8896-f051a6360d10">Методы</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1142e807-d74f-801e-a70c-f32f3d679713">Реализация на массиве (Задача 1)</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1142e807-d74f-800b-bad0-f4077663854a">Правильные скобочные последовательности (ПСП) (Задача 3)</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1142e807-d74f-8044-9ec7-f774061f9281">Queue</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1142e807-d74f-8064-8e72-c85e71e5004f">Идея + описание</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1142e807-d74f-80d3-823f-e6193d2c6088">Методы</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1142e807-d74f-80db-aac6-de367e496cce">Реализация на массиве (Задача 2)</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1142e807-d74f-80d0-9068-dc5bf13ce12d">Реализация на двух стеках (Задача 2)</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1142e807-d74f-8073-aa16-ef1a16bc8a68">Deque</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1142e807-d74f-80cc-ba14-f4351b9fd431">Идея + описание</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1142e807-d74f-80b2-b75a-e7817f56a8cb">Методы</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1142e807-d74f-8021-b88e-d9ac168cce7a">Ending</a></div></nav><hr id="1142e807-d74f-800d-a62d-d4b1e6530237"/><h1 id="1142e807-d74f-804a-a686-e3ab75f3d10d" class="">Stack</h1><h3 id="1142e807-d74f-8000-b451-df1365f154d6" class="">Идея + описание</h3><blockquote id="1142e807-d74f-800a-9e91-e4458ab73bcd" class="">Основная идея стека в том, что мы можем <span style="border-bottom:0.05em solid">класть в элементы в конец</span> и <span style="border-bottom:0.05em solid">доставать их с конца.</span> Например, если я положил элементы в порядке 1 2 3 4 5, то достать я их смогу только в порядке 5 4 3 2 1.</blockquote><blockquote id="1142e807-d74f-801b-a00f-d6d08051e45c" class="">По сути, можно воспринимать стек как “пробирку”, из которой мы не можем доставать нижние элементы, пока не достанем верхние.</blockquote><blockquote id="1142e807-d74f-80ee-8f77-cee52d2a716a" class="">Чтобы пользоваться стеком, надо подключить библиотеку &lt;stack&gt;.</blockquote><figure id="1142e807-d74f-80ae-91ee-e11581aaa9d4" class="image"><a href="IV%20Stack%20Deque%20Queue%201132e807d74f80678848e498809fcaef/image.png"><img style="width:707.96875px" src="IV%20Stack%20Deque%20Queue%201132e807d74f80678848e498809fcaef/image.png"/></a></figure><hr id="1142e807-d74f-8079-a79b-e12f76815783"/><h3 id="1142e807-d74f-8008-8896-f051a6360d10" class="">Методы</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1142e807-d74f-802a-98af-f8b71d3df279" class="code"><code class="language-C++">#include &lt;iostream&gt;
+#include &lt;stack&gt;
+
+using namespace std;
+
+void solve() {
+    stack&lt;int&gt; st;
+    int n = 5;
+    for (int i = 0; i &lt; n; i++)
+        st.push(i);
+    cout &lt;&lt; st.size() &lt;&lt; &#x27;\n&#x27;;  // 5
+    cout &lt;&lt; st.empty() &lt;&lt; &#x27;\n&#x27;; // false
+    
+    while (!st.empty()) {
+        cout &lt;&lt; st.top() &lt;&lt; &#x27; &#x27;; // 4 3 2 1 0
+        st.pop();
+    }
+    cout &lt;&lt; st.size() &lt;&lt; &#x27;\n&#x27;;  // 0
+    cout &lt;&lt; st.empty() &lt;&lt; &#x27;\n&#x27;; // true
+}</code></pre><blockquote id="1142e807-d74f-8055-9075-d1179afad791" class="">#include &lt;stack&gt;</blockquote><p id="1142e807-d74f-8078-adad-d5630998abf1" class="">Подключаем библиотеку &lt;stack&gt; для возможности использования stack’a.</p><blockquote id="1142e807-d74f-8062-8751-f9ea0465d88d" class="">stack&lt;int&gt; st;</blockquote><p id="1142e807-d74f-8089-a45f-fd3ea7362840" class="">Аналогично вектору, чтобы обьявить стек, надо указать тип данных, который будет лежать в структуре.</p><blockquote id="1142e807-d74f-80cc-ad8e-e8cfda1f4367" class="">st.push(i);</blockquote><p id="1142e807-d74f-8075-9693-cfde841e3066" class="">Кладем элемент в конец стека</p><blockquote id="1142e807-d74f-807d-a9fa-d27baa4dd77a" class="">st.size();</blockquote><p id="1142e807-d74f-8081-96a5-e14769c14908" class="">Можем узнать размер стека</p><blockquote id="1142e807-d74f-80fa-afe9-e1c5e4f5ef2c" class="">st.empty();</blockquote><p id="1142e807-d74f-80c1-9363-f6e43748696f" class="">Получаем true или false в зависимости от пустоты стека. (пустой → true)</p><blockquote id="1142e807-d74f-80a5-8c80-c2bc01f72622" class="">st.top();</blockquote><p id="1142e807-d74f-8020-9121-fa9384d2ab3a" class="">Узнаем верхний элемент стека. Если такого нет, то получим, вероятно RE.</p><blockquote id="1142e807-d74f-80a4-acdb-d5da43c224c2" class="">st.pop();</blockquote><p id="1142e807-d74f-8067-a54a-f5cbb37d84d5" class="">Удаляем верхний элемент стека.</p><hr id="1142e807-d74f-80d4-aaef-fda7f8cb467a"/><h3 id="1142e807-d74f-801e-a70c-f32f3d679713" class="">Реализация на массиве (Задача 1)</h3><figure id="1142e807-d74f-800d-a971-f310e1dd1efd" class="image"><a href="IV%20Stack%20Deque%20Queue%201132e807d74f80678848e498809fcaef/image%201.png"><img style="width:707.984375px" src="IV%20Stack%20Deque%20Queue%201132e807d74f80678848e498809fcaef/image%201.png"/></a></figure><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1142e807-d74f-8013-9bb1-c4d1b4f33f41" class="code"><code class="language-C++">#include &lt;iostream&gt;
+#include &lt;stack&gt;
+
+using namespace std;
+
+void solve() {
+    int a[100], n, sz=0;
+    string command;
+    cin &gt;&gt; command;
+
+    while (command != &quot;exit&quot;) {
+        if (command == &quot;push&quot;) {
+            cin &gt;&gt; n;
+            a[sz] = n;
+            sz++;
+            cout &lt;&lt; &quot;ok\n&quot;;
+        } else if (command == &quot;pop&quot;) {
+            cout &lt;&lt; a[sz - 1] &lt;&lt; &#x27;\n&#x27;;
+            // a[sz - 1] = 0;
+            sz--;
+        } else if (command == &quot;back&quot;) {
+            cout &lt;&lt; a[sz - 1] &lt;&lt; &#x27;\n&#x27;;
+        } else if (command == &quot;size&quot;) {
+            cout &lt;&lt; sz &lt;&lt; &#x27;\n&#x27;;
+        } else if (command == &quot;clear&quot;) {
+            sz = 0;
+            cout &lt;&lt; &quot;ok\n&quot;;
+        }
+        cin &gt;&gt; command;
+    }
+    cout &lt;&lt; &quot;bye&quot;;
+}
+
+int main() {
+    solve();
+    return 0;
+}</code></pre><blockquote id="1142e807-d74f-80b0-8ed0-ce1bb4b16e15" class="">int a[100], n, sz=0;</blockquote><p id="1142e807-d74f-8040-85c2-c6bc1b529898" class="">Создаем массив, в котором будем хранить стек (по условию мы знаем что его размер не больше 100). Переменная n, которую мы будем считывать для добавления в стек, а также переменная для размера стека.</p><blockquote id="1142e807-d74f-80a0-9433-fee78ca2c42e" class="">string command;<br/>cin &gt;&gt; command;<br/></blockquote><p id="1142e807-d74f-809b-9c25-ec5cf8815ba9" class="">Считываем очередную команду (в частности цикл можно заменить на do { … } while, если хочется).</p><blockquote id="1142e807-d74f-8050-b520-daaee8f82afb" class="">if (command == &quot;push&quot;) {<br/>    cin &gt;&gt; n;<br/>    a[sz] = n;<br/>    sz++;<br/>    cout &lt;&lt; &quot;ok\n&quot;;<br/>}<br/></blockquote><p id="1142e807-d74f-8020-a38b-dec4234283ba" class="">Считываем новое число. Т.к. размер стека был sz, то индекс последнего элемента был sz-1, а значит новый элемент будет лежать по индексу sz. Записываем в соотвествующий индекс число и увеличиваем размер на 1.</p><blockquote id="1142e807-d74f-802b-864a-e436644fa963" class="">else if (command == &quot;pop&quot;) {<br/>    cout &lt;&lt; a[sz - 1] &lt;&lt; &#x27;\n&#x27;;<br/>    // a[sz - 1] = 0;<br/>    sz--;<br/>}<br/></blockquote><p id="1142e807-d74f-8059-b789-e6381dc1ccc4" class="">Последний элемент лежит по индексу sz-1. Уменьшаем размер на 1. Если хочется, можно обнулить удаленный элемент, обозначив как бы, что мы его удалили</p><blockquote id="1142e807-d74f-8082-9e37-c9fb730f4950" class="">else if (command == &quot;back&quot;) {<br/>    cout &lt;&lt; a[sz - 1] &lt;&lt; &#x27;\n&#x27;;<br/>}<br/></blockquote><p id="1142e807-d74f-802f-a863-d172eb9aa6a6" class="">Аналогично, просто мы не уменьшаем размер стека.</p><blockquote id="1142e807-d74f-8016-8946-fbd05fd410ad" class="">else if (command == &quot;size&quot;) {<br/>    cout &lt;&lt; sz &lt;&lt; &#x27;\n&#x27;;<br/>}<br/></blockquote><p id="1142e807-d74f-80e2-827f-f5fce466aba5" class="">Размер стека, что тут добавить)</p><blockquote id="1142e807-d74f-8063-918c-dfb398aebeef" class="">else if (command == &quot;clear&quot;) {<br/>    sz = 0;<br/>    cout &lt;&lt; &quot;ok\n&quot;;<br/>}<br/></blockquote><p id="1142e807-d74f-80d1-a329-ef8111f5a07a" class="">Так как нам в действительности не надо удалять элементы, мы можем просто обнулить значение размера (в реальности так работает .clear в векторе, кстати).</p><blockquote id="1142e807-d74f-8093-81aa-fe57dbe6ca9a" class="">cin &gt;&gt; command;</blockquote><p id="1142e807-d74f-80c8-9501-d5c3b69a12a5" class="">Вводим следующую команду)</p><ul id="1142e807-d74f-809c-8fab-dd010319dd79" class="bulleted-list"><li style="list-style-type:disc">Если интересно, есть задача аналогичная с зашитой от ошибок (например, вы должны вывести error, если стек пустой на запросе удаления)</li></ul><hr id="1142e807-d74f-80de-a195-cf4c0b7ea4cf"/><h3 id="1142e807-d74f-800b-bad0-f4077663854a" class="">Правильные скобочные последовательности (ПСП) (Задача 3)</h3><p id="1142e807-d74f-8092-b35d-db65ebdc36d7" class="">Есть разные определения ПСП. Для полноты картины я перечислю некоторые из них.</p><ul id="1142e807-d74f-80c2-aa6a-eb34df307625" class="bulleted-list"><li style="list-style-type:disc">Последовательность скобок, которую можно долнинить числами и арифмитическими знаками так, чтобы получилость корректное арифмитическое выражение.</li></ul><ul id="1142e807-d74f-80f5-bed8-c2fee540a5dd" class="bulleted-list"><li style="list-style-type:disc">Последовательность скобок такая, что каждой открывающей скобки соответствует некоторая закрывающая, причем, если обозначить отрезки с концами в этих скобках. То можно сказать, что любые два отрезка либо не пересекаются, либо один входит в другой.<br/>Иначе говоря, скобки разбиты на пары “корректно”.<br/></li></ul><ul id="1142e807-d74f-8015-8203-fa8b38eb3bd3" class="bulleted-list"><li style="list-style-type:disc">Рекурсивное определение<ul id="1142e807-d74f-80e6-bdbd-ce8f6a331f7a" class="bulleted-list"><li style="list-style-type:circle">(), [], {} - ПСП (пустая строка тоже ПСП).</li></ul><ul id="1142e807-d74f-8024-9e08-f62ea8e9ccba" class="bulleted-list"><li style="list-style-type:circle">Если A - ПСП, то (A), [A], {A} также ПСП.</li></ul><ul id="1142e807-d74f-8024-a207-fd042140637f" class="bulleted-list"><li style="list-style-type:circle">Если A, B - ПСП, то AB также ПСП.</li></ul></li></ul><figure id="1142e807-d74f-8070-8948-d375eacf99b2" class="image"><a href="IV%20Stack%20Deque%20Queue%201132e807d74f80678848e498809fcaef/image%202.png"><img style="width:707.984375px" src="IV%20Stack%20Deque%20Queue%201132e807d74f80678848e498809fcaef/image%202.png"/></a></figure><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1142e807-d74f-80e1-a14a-c8c422e841c1" class="code"><code class="language-C++">#include &lt;iostream&gt;
+#include &lt;stack&gt;
+
+using namespace std;
+
+void solve() {
+    stack&lt;char&gt; st;
+    st.push(&#x27;0&#x27;);
+    string str;
+    cin &gt;&gt; str;
+    for (auto i : str) {
+        // str[i] -&gt; i
+        // for (int i = 0; i &lt; str.size(); i++)
+        if (i == &#x27;(&#x27; || i == &#x27;[&#x27; || i == &#x27;{&#x27;)
+            st.push(i);
+        else if (i == &#x27;)&#x27; &amp;&amp; st.top() == &#x27;(&#x27;)
+            st.pop();
+        else if (i == &#x27;}&#x27; &amp;&amp; st.top() == &#x27;{&#x27;)
+            st.pop();
+        else if (i == &#x27;]&#x27; &amp;&amp; st.top() == &#x27;[&#x27;)
+            st.pop();
+        else {
+            cout &lt;&lt; &quot;no&quot;;
+            return;
+        }
+    }
+    if (st.size() == 1) cout &lt;&lt; &quot;yes&quot;;
+    else cout &lt;&lt; &quot;no&quot;;
+}
+
+int main() {
+    solve();
+    return 0;
+}</code></pre><p id="1142e807-d74f-8002-bd60-db675579eb5c" class="">Основная идея решения в том, что будем хранить на стеке открытые скобки, которым еще “не нашли пару”. Как только мы ее находим, то удаляем соответсвующую открывющую скобку</p><blockquote id="1142e807-d74f-80bf-9a08-f4be85448ea6" class="">stack&lt;char&gt; st;<br/>st.push(&#x27;0&#x27;);<br/></blockquote><p id="1142e807-d74f-80bb-bb75-ef013c48d1f9" class="">Положим “фейковый” символ в стек, чтобы мы были уверены в том, что стек всегда не пуст (и не ловить ошибки на .empty()).</p><blockquote id="1142e807-d74f-807d-9d3e-cb2b7294c66a" class="">if (i == &#x27;(&#x27; || i == &#x27;[&#x27; || i == &#x27;{&#x27;)<br/>    st.push(i);<br/></blockquote><p id="1142e807-d74f-80f2-902d-cea6a45ed8d5" class="">Если скобка открывающая, то просто положим ее на стек.</p><blockquote id="1142e807-d74f-80f9-9e2b-c463d7ef6b1e" class="">else if (i == &#x27;)&#x27; &amp;&amp; st.top() == &#x27;(&#x27;)<br/>    st.pop();<br/>else if (i == &#x27;}&#x27; &amp;&amp; st.top() == &#x27;{&#x27;)<br/>    st.pop();<br/>else if (i == &#x27;]&#x27; &amp;&amp; st.top() == &#x27;[&#x27;)<br/>    st.pop();<br/></blockquote><p id="1142e807-d74f-8050-84de-d26ab4628e13" class="">Если скобка закрывающая, то мы должны дать ей в пару соответствующую открыввающую.</p><blockquote id="1142e807-d74f-80db-94e3-e685bcdb1f66" class="">else {<br/>    cout &lt;&lt; &quot;no&quot;;<br/>    return;<br/>}<br/></blockquote><p id="1142e807-d74f-80e9-9a0c-f892bf1bebb3" class="">Если закрывающей скобке не сопоставилась открывающая, то значит последовательность не ПСП.</p><blockquote id="1142e807-d74f-8099-9310-d7b4013026b4" class="">if (st.size() == 1) cout &lt;&lt; &quot;yes&quot;;<br/>else cout &lt;&lt; &quot;no&quot;;<br/></blockquote><p id="1142e807-d74f-8011-97e6-e40f8534e450" class="">В конце проверки надо, чтобы не осталось никаких открывающих скобок на стеке (но мы помним, что там лежит фиктивный ноль).</p><hr id="1142e807-d74f-80f0-9e0e-c38770a1d3c6"/><h1 id="1142e807-d74f-8044-9ec7-f774061f9281" class="">Queue</h1><h3 id="1142e807-d74f-8064-8e72-c85e71e5004f" class="">Идея + описание</h3><blockquote id="1142e807-d74f-80b8-842b-c1bb52f99146" class="">Основная идея очереди в том, что мы можем <span style="border-bottom:0.05em solid">класть в элементы в конец</span> и <span style="border-bottom:0.05em solid">доставать их с начала.</span> Например, если я положил элементы в порядке 1 2 3 4 5, то достать я их смогу только в порядке 1 2 3 4 5.</blockquote><blockquote id="1142e807-d74f-8078-a64d-cda0b4d12940" class="">По сути, можно воспринимать стек как “тонель”, из которого элементы выходят в том же порядке, что и зашли.</blockquote><blockquote id="1142e807-d74f-80cf-bd9b-e349778896cf" class="">Чтобы пользоваться очедерью, надо подключить библиотеку &lt;queue&gt;.</blockquote><figure id="1142e807-d74f-80c6-8c81-d67656457e6d" class="image"><a href="IV%20Stack%20Deque%20Queue%201132e807d74f80678848e498809fcaef/image%203.png"><img style="width:707.984375px" src="IV%20Stack%20Deque%20Queue%201132e807d74f80678848e498809fcaef/image%203.png"/></a></figure><hr id="1142e807-d74f-80fb-b5a6-f43b78e35081"/><h3 id="1142e807-d74f-80d3-823f-e6193d2c6088" class="">Методы</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1142e807-d74f-8040-a082-e90b88869b07" class="code"><code class="language-C++">#include &lt;iostream&gt;
+#include &lt;queue&gt;
+
+using namespace std;
+
+void solve() {
+    queue&lt;int&gt; st;
+    int n = 5;
+    for (int i = 0; i &lt; n; i++)
+        st.push(i);
+    cout &lt;&lt; st.size() &lt;&lt; &#x27;\n&#x27;;  // 5
+    cout &lt;&lt; st.empty() &lt;&lt; &#x27;\n&#x27;; // false
+
+    while (!st.empty()) {
+        cout &lt;&lt; st.front() &lt;&lt; &#x27; &#x27;; // 0 1 2 3 4
+        st.pop();
+    }
+    cout &lt;&lt; st.size() &lt;&lt; &#x27;\n&#x27;;  // 0
+    cout &lt;&lt; st.empty() &lt;&lt; &#x27;\n&#x27;; // true
+}</code></pre><blockquote id="1142e807-d74f-805b-a2cf-ed44a865b315" class="">#include &lt;queue&gt;</blockquote><p id="1142e807-d74f-8092-bbe8-f849f6d3f124" class="">Подключаем библиотеку &lt;queue&gt; для возможности использования очереди.</p><blockquote id="1142e807-d74f-8073-95bd-e1b48ef197b6" class="">queue&lt;int&gt; st;</blockquote><p id="1142e807-d74f-808a-ad6c-e4611247fb03" class="">Аналогично вектору, чтобы обьявить очередь, надо указать тип данных, который будет лежать в структуре.</p><blockquote id="1142e807-d74f-8046-a94a-d9c15858a737" class="">st.push(i);</blockquote><p id="1142e807-d74f-80aa-aaef-c6a0c3983c6a" class="">Кладем элемент в конец очереди</p><blockquote id="1142e807-d74f-8045-bbaf-e7e8d8293736" class="">st.size();</blockquote><p id="1142e807-d74f-80ac-965e-c5ecf6cd40a5" class="">Можем узнать размер очереди</p><blockquote id="1142e807-d74f-809f-b0d2-e4cb0f5a13e9" class="">st.empty();</blockquote><p id="1142e807-d74f-80cc-acfb-d3486bc56b01" class="">Получаем true или false в зависимости от пустоты очереди. (пустой → true)</p><blockquote id="1142e807-d74f-8080-928a-ed2acf5c920a" class="">st.front();</blockquote><p id="1142e807-d74f-801c-9969-e2871587f5ba" class="">Узнаем первый элемент очереди. Если такого нет, то получим, вероятно RE.</p><blockquote id="1142e807-d74f-80df-afd8-c40e49fcdaa4" class="">st.pop();</blockquote><p id="1142e807-d74f-8086-8b40-ec167cf4cdc2" class="">Удаляем первый элемент очереди.</p><hr id="1142e807-d74f-8081-aff5-cbaa51d0a33f"/><h3 id="1142e807-d74f-80db-aac6-de367e496cce" class="">Реализация на массиве (Задача 2)</h3><figure id="1142e807-d74f-808c-8bce-d0d57ea8dd28" class="image"><a href="IV%20Stack%20Deque%20Queue%201132e807d74f80678848e498809fcaef/image%204.png"><img style="width:707.984375px" src="IV%20Stack%20Deque%20Queue%201132e807d74f80678848e498809fcaef/image%204.png"/></a></figure><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1142e807-d74f-80be-82f8-d514fcbfd3f6" class="code"><code class="language-C++">#include &lt;iostream&gt;
+
+using namespace std;
+
+void solve() {
+    int a[101], n;
+    int begin = 0, end = 0;
+    // [begin, end)
+
+    string command;
+    cin &gt;&gt; command;
+
+    while (command != &quot;exit&quot;) {
+        if (command == &quot;push&quot;) {
+            cin &gt;&gt; n;
+            // ...
+            // end - 2, end - 1, end
+            // begin, begin + 1
+            a[end] = n;
+            end++;
+            if (end == 101)
+                end = 0;
+            cout &lt;&lt; &quot;ok\n&quot;;
+        } else if (command == &quot;pop&quot;) {
+            cout &lt;&lt; a[begin] &lt;&lt; &#x27;\n&#x27;;
+            begin++;
+            if (begin == 101)
+                begin = 0;
+        } else if (command == &quot;front&quot;) {
+            cout &lt;&lt; a[begin] &lt;&lt; &#x27;\n&#x27;;
+        } else if (command == &quot;size&quot;) {
+            if (begin &gt; end)
+                cout &lt;&lt; 101 - begin + end &lt;&lt; &#x27;\n&#x27;;
+            else
+                cout &lt;&lt; end - begin &lt;&lt; &#x27;\n&#x27;;
+        } else if (command == &quot;clear&quot;) {
+            begin = end = 0;
+            cout &lt;&lt; &quot;ok\n&quot;;
+        }
+        cin &gt;&gt; command;
+    }
+    cout &lt;&lt; &quot;bye&quot;;
+}</code></pre><blockquote id="1142e807-d74f-80a1-8e08-d9ba6d3eeb5a" class="">В целом аналогично стеку на массиве, только вместо размера мы будем хранить начало и конец очереди (причем в виде [begin, end), чтобы удобнее считать размеры.</blockquote><blockquote id="1142e807-d74f-8002-aa3d-d760abe72a03" class="">Также для того, чтобы end не мог совпасть с begin мы сделаем массива размера 101.</blockquote><blockquote id="1142e807-d74f-80c9-b978-f7c89a719cff" class="">Также надо грамотно рассмотреть случай, когда конец очереди “выходит” за пределы массива. В таком случае мы продолжаем ее в начале и как бы “ходим по кругу”.</blockquote><hr id="1142e807-d74f-80ec-8c07-c137e954c04b"/><h3 id="1142e807-d74f-80d0-9068-dc5bf13ce12d" class="">Реализация на двух стеках (Задача 2)</h3><ul id="1142e807-d74f-801d-863c-e932e58cbe22" class="bulleted-list"><li style="list-style-type:disc">Та же задача, но с некоторой другой идеей.</li></ul><ul id="1142e807-d74f-80ea-946c-daf5ce06cb82" class="bulleted-list"><li style="list-style-type:disc">Можем заметить, что нам не запрещено пользоваться стеками. А значит можно попробовать решить задачу с их помощью.</li></ul><ul id="1142e807-d74f-808a-b498-ff9f36febba1" class="bulleted-list"><li style="list-style-type:disc">Для этого создадим два стека, где один будет отвечать за “начало” очереди и из него мы будем забирать элементы, а другой будет “концом” очереди и элементы класть мы будем именно туда.</li></ul><ul id="1142e807-d74f-80ad-85fe-e587b25ef2ce" class="bulleted-list"><li style="list-style-type:disc">* Рекомендую самостоятельно рассмотреть различные данные и подробнее разобрать, что тут происходит</li></ul><ul id="1142e807-d74f-806b-a1a7-ddfdead5317c" class="bulleted-list"><li style="list-style-type:disc">Не смотря на то, что операция pop/front может выполнится за O(n), весь код все равно будет работает за O(n) (иначе говоря, O(1) на операцию в среднем)<ul id="1142e807-d74f-8029-94b2-e0ab318deb57" class="bulleted-list"><li style="list-style-type:circle">Это можно доказать. Заметим, что каждый элемент в итоге попадает в первый стек, потом переходит во второй, а потом выходит из второго. То есть проходит 3 операции, а это константа. </li></ul></li></ul><figure id="1142e807-d74f-800b-b345-c988c9037f88" class="image"><a href="IV%20Stack%20Deque%20Queue%201132e807d74f80678848e498809fcaef/image%204.png"><img style="width:707.984375px" src="IV%20Stack%20Deque%20Queue%201132e807d74f80678848e498809fcaef/image%204.png"/></a></figure><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1142e807-d74f-8032-98ca-eced6f40a94d" class="code"><code class="language-C++">#include &lt;iostream&gt;
+#include &lt;queue&gt;
+#include &lt;deque&gt;
+#include &lt;vector&gt;
+#include &lt;stack&gt;
+
+using namespace std;
+
+void solve() {
+    int n;
+    string command;
+    cin &gt;&gt; command;
+
+    stack&lt;int&gt; begin;
+    stack&lt;int&gt; end;
+
+    while (command != &quot;exit&quot;) {
+        if (command == &quot;push&quot;) {
+            cin &gt;&gt; n;
+            end.push(n);
+            cout &lt;&lt; &quot;ok\n&quot;;
+        } else if (command == &quot;pop&quot;) {
+            if (begin.empty()) {
+                while (!end.empty()) {
+                    begin.push(end.top());
+                    end.pop();
+                }
+            }
+            cout &lt;&lt; begin.top() &lt;&lt; &#x27;\n&#x27;;
+            begin.pop();
+        } else if (command == &quot;front&quot;) {
+            if (begin.empty()) {
+                while (!end.empty()) {
+                    begin.push(end.top());
+                    end.pop();
+                }
+            }
+            cout &lt;&lt; begin.top() &lt;&lt; &#x27;\n&#x27;;
+        } else if (command == &quot;size&quot;) {
+            cout &lt;&lt; begin.size() + end.size() &lt;&lt; &#x27;\n&#x27;;
+        } else if (command == &quot;clear&quot;) {
+            while (!end.empty()) end.pop();
+            while (!begin.empty()) begin.pop();
+            cout &lt;&lt; &quot;ok\n&quot;;
+        }
+        cin &gt;&gt; command;
+    }
+    cout &lt;&lt; &quot;bye&quot;;
+}
+
+
+int main() {
+    solve();
+    return 0;
+}</code></pre><blockquote id="1142e807-d74f-8096-97fe-daa2241a33d7" class="">push n</blockquote><p id="1142e807-d74f-8016-b189-f33df8c0335e" class="">Добавляем просто во второй стек новый элемент</p><blockquote id="1142e807-d74f-80f0-82ea-f327d4d4073f" class="">pop</blockquote><p id="1142e807-d74f-80f4-89ef-f7f20b6b82d0" class="">Удаляем элемент из первого стека. Если он был пуст, то перед этим перекладываем все элементы второго стека в первый.</p><blockquote id="1142e807-d74f-8013-a919-daabf93e2932" class="">front</blockquote><p id="1142e807-d74f-8089-ae2b-d4bc5abf88bb" class="">Аналогично pop, но не удаляем, а просто перекладываем при необходмости.</p><blockquote id="1142e807-d74f-802e-aa71-cc676f5d65a5" class="">size</blockquote><p id="1142e807-d74f-8032-8bbc-ee2c56c22f94" class="">Размер очереди - это сумма размеров стеков.</p><blockquote id="1142e807-d74f-8074-9c48-f4a68703087f" class="">clear</blockquote><p id="1142e807-d74f-8069-860d-fd6840d969f8" class="">Очищаем оба стека и помним, что у них нет встроенного метода clear().</p><hr id="1142e807-d74f-8001-9d63-f142d8420416"/><h1 id="1142e807-d74f-8073-aa16-ef1a16bc8a68" class="">Deque</h1><h3 id="1142e807-d74f-80cc-ba14-f4351b9fd431" class="">Идея + описание</h3><blockquote id="1142e807-d74f-80cd-9d4b-ce8f536b9425" class="">Основная идея дека  в том, что мы можем <span style="border-bottom:0.05em solid">класть в элементы и в конец, и в начало</span>, а также <span style="border-bottom:0.05em solid">доставать их и с начала, и с конца</span> (вообще, в деке есть индексация, так что ей тоже можно пользоваться). </blockquote><blockquote id="1142e807-d74f-8015-a981-c755679411e3" class="">По сути, можно воспринимать стек как “двустороннюю очередь”.</blockquote><blockquote id="1142e807-d74f-80e1-aee6-c532cf0e9650" class="">Чтобы пользоваться очедерью, надо подключить библиотеку &lt;deque&gt;.</blockquote><hr id="1142e807-d74f-80dc-adb8-da25f1ed1c8c"/><h3 id="1142e807-d74f-80b2-b75a-e7817f56a8cb" class="">Методы</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1142e807-d74f-800c-beca-fc620c2234db" class="code"><code class="language-C++">#include &lt;iostream&gt;
+#include &lt;deque&gt;
+using namespace std;
+
+void solve() {
+    deque&lt;int&gt; deq;
+    int n = 5;
+    for (int i = 0; i &lt; n; i++)
+        deq.push_back(i);
+    for (int i = 0; i &lt; n; i++)
+        deq.push_front(i);
+    cout &lt;&lt; deq[0] &lt;&lt; &#x27;\n&#x27;; // 4
+    cout &lt;&lt; deq.size() &lt;&lt; &#x27;\n&#x27;;  // 10
+    cout &lt;&lt; deq.empty() &lt;&lt; &#x27;\n&#x27;; // false
+
+    while (!deq.empty()) {
+        cout &lt;&lt; deq.front() &lt;&lt; &#x27; &#x27;; // 4 4 3 3 2 2 1 1 0 0 0
+        cout &lt;&lt; deq.back() &lt;&lt; &#x27; &#x27;;
+        deq.pop_back();
+        deq.pop_front();
+    }
+    cout &lt;&lt; &#x27;\n&#x27;;
+    cout &lt;&lt; deq.size() &lt;&lt; &#x27;\n&#x27;;  // 0
+    cout &lt;&lt; deq.empty() &lt;&lt; &#x27;\n&#x27;; // true
+}
+
+int main() {
+    solve();
+    return 0;
+}</code></pre><blockquote id="1142e807-d74f-802a-8e94-ee2ac5ce3c34" class="">#include &lt;deque&gt;</blockquote><p id="1142e807-d74f-809f-bbfb-ccac9a6fd713" class="">Подключаем библиотеку &lt;deque&gt; для возможности использования дека.</p><blockquote id="1142e807-d74f-80de-8dbd-dae5787eb1ce" class="">deque&lt;int&gt; st;</blockquote><p id="1142e807-d74f-8060-bca1-c86b151c9e0d" class="">Аналогично вектору, чтобы обьявить дека, надо указать тип данных, который будет лежать в структуре.</p><blockquote id="1142e807-d74f-80fb-9b68-d70e79bf57db" class="">st.push_back(i);</blockquote><p id="1142e807-d74f-80d8-8c40-cf7f91d00377" class="">Кладем элемент в конец дека.</p><blockquote id="1142e807-d74f-80c1-a324-ce2246e92c1d" class="">st.push_front(i);</blockquote><p id="1142e807-d74f-8084-ac3d-e64873ae4feb" class="">Кладем элемент в начало дека.</p><blockquote id="1142e807-d74f-8055-b6c5-eab4aa1ecdac" class="">st.size();</blockquote><p id="1142e807-d74f-8058-a8a0-f7f29b23c8e8" class="">Можем узнать размер дека.</p><blockquote id="1142e807-d74f-80bd-ba59-db036fb9171b" class="">st.empty();</blockquote><p id="1142e807-d74f-8030-8e20-e0e3c9e59171" class="">Получаем true или false в зависимости от пустоты дека. (пустой → true)</p><blockquote id="1142e807-d74f-80b9-9a9a-e59e88d30acc" class="">st.front();</blockquote><p id="1142e807-d74f-8072-8d44-ee82591e99c9" class="">Узнаем первый элемент дека. Если такого нет, то получим, вероятно RE.</p><blockquote id="1142e807-d74f-80b4-a668-f1e19bf11715" class="">st.back();</blockquote><p id="1142e807-d74f-80e2-8430-f0ef4ea9c8dd" class="">Узнаем последний элемент дека. Если такого нет, то получим, вероятно RE.</p><blockquote id="1142e807-d74f-80e4-bc30-d079ef760f0d" class="">st.pop_front();</blockquote><p id="1142e807-d74f-8018-8ff2-cafbb49b64f6" class="">Удаляем первый элемент дека.</p><blockquote id="1142e807-d74f-80a4-871f-ecef731ec01c" class="">st.pop_back();</blockquote><p id="1142e807-d74f-80b4-a892-dd08ee11a7f8" class="">Удаляем последний элемент дека.</p><blockquote id="1142e807-d74f-8003-88b0-f30b3a4d735a" class="">cout &lt;&lt; d[0] &lt;&lt; ‘\n’;</blockquote><p id="1142e807-d74f-8055-8e1f-d1485bf71b7e" class="">В деке есть индексация, как мы и говорили ранее.</p><hr id="1142e807-d74f-809a-95fc-e1c0c846efe8"/><h1 id="1142e807-d74f-8021-b88e-d9ac168cce7a" class="">Ending</h1><p id="1222e807-d74f-803f-8196-da1b90249bb0" class=""><mark class="highlight-gray"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>© Created by Anton Vitiuk 10.2024</mtext></mrow><annotation encoding="application/x-tex">© \text { Created by Anton Vitiuk 10.2024}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0833em;vertical-align:-0.1944em;"></span><span class="mord text"><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8889em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">c</span></span></span><span style="top:-3.1944em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body accent-full" style="left:0em;top:.2em;"><span class="mord">◯</span></span></span></span></span></span></span></span><span class="mord text"><span class="mord"> Created by Anton Vitiuk 10.2024</span></span></span></span></span></span><span>﻿</span></span></mark></p><p id="1222e807-d74f-80a2-ade4-ce92fdef91b3" class=""><a href="https://t.me/MrAnt1vit">telegram</a> <a href="https://vk.com/mrant1vit">vk</a> </p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

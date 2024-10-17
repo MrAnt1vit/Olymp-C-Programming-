@@ -1,0 +1,958 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>II Advanced C++</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="10c2e807-d74f-80ec-8ce2-ff4eec764dce" class="page sans"><header><h1 class="page-title">II Advanced C++</h1><p class="page-description"></p></header><div class="page-body"><nav id="10c2e807-d74f-80df-9b8c-dd146a065f75" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#10c2e807-d74f-8081-8f27-d9fc995a81d1">Напоминания =)</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#10c2e807-d74f-80f4-93ea-eb79cb46feb9">Функции</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#10c2e807-d74f-80ef-b927-d298868625db">Глобально о функциях</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#10c2e807-d74f-807e-b84d-d918e51b1a6c">Перегрузка функций</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#10c2e807-d74f-8043-abf0-c6a45af2372a">Пример применения (из олимпиадного опыта =)</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#10c2e807-d74f-8026-a314-e8b2cf8546fd">Передача по ссылке</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#10c2e807-d74f-8081-bf97-dccf73363250">Перегрузка по ссылке (неоднозначный пример)</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#10c2e807-d74f-801e-b200-f5b6c05d18d0">Указатели, ссылки</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#10c2e807-d74f-8000-95a1-c040c74e9fe7">Массивы</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#10c2e807-d74f-804d-93a6-f5444a542fbf">Vector!</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#10d2e807-d74f-80de-9a2b-d340f92a7fa0">Vector - методы</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#10d2e807-d74f-807a-8984-dcc7882a3749">&lt;algorithm&gt;</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#10d2e807-d74f-8019-99a6-c7351d0b92ab">Фичи (полезные и не только)</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1222e807-d74f-80d5-a008-c288e95ecaa9">Ending</a></div></nav><hr id="10c2e807-d74f-80dd-8556-ff94068e7fe3"/><h1 id="10c2e807-d74f-8081-8f27-d9fc995a81d1" class="">Напоминания =)</h1><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="10c2e807-d74f-8001-82f5-cdbedffa389d" class="code"><code class="language-C++">int main() {
+    string str, str2, str3;
+
+    cin &gt;&gt; str &gt;&gt; str2 &gt;&gt; str3;
+
+    cout &lt;&lt; str &lt;&lt; &#x27;\n&#x27;;
+    cout &lt;&lt; str2 &lt;&lt; &#x27;\n&#x27;;
+    cout &lt;&lt; str3 &lt;&lt; &#x27;\n&#x27;;
+
+    return 0;
+}</code></pre><blockquote id="10c2e807-d74f-8045-b2fd-e2fe1070f0d1" class="">Считывание строк работает не как в питоне!!<br/>Строка считывается посимвольно до первого разделительного символа (пробел, перенос строки, таб)<br/></blockquote><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="10c2e807-d74f-80e8-b919-e4cde4549da7" class="code"><code class="language-C++">#include &lt;iostream&gt;
+
+using namespace std;
+
+int main() {
+    char c;
+    cin &gt;&gt; c;
+    cout &lt;&lt; c - &#x27;0&#x27;; // &#x27;9&#x27; -&gt; 9
+    cout &lt;&lt; c - &#x27;a&#x27;; // &#x27;b&#x27; -&gt; 1; &#x27;z&#x27; -&gt; 25
+}</code></pre><blockquote id="10c2e807-d74f-80e8-a4fe-e9d42215eb05" class="">Символы это числа в памяти и цифры как символы имеют порядковые номера. Это позволяет при помощи вычитания символов получать численное значение, например, цифры. </blockquote><hr id="10c2e807-d74f-8011-8ce8-e4b5b3248e2c"/><h1 id="10c2e807-d74f-80f4-93ea-eb79cb46feb9" class="">Функции</h1><h3 id="10c2e807-d74f-80ef-b927-d298868625db" class="">Глобально о функциях</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="10c2e807-d74f-801e-bf2c-d4502599a8df" class="code"><code class="language-C++">#include &lt;iostream&gt;
+
+using namespace std;
+
+int f() {
+    cout &lt;&lt; &quot;f!!&quot; &lt;&lt; &#x27;\n&#x27;;
+    return 1;
+}
+
+void g(int a, int b) {
+    cout &lt;&lt; &quot;void function&quot; &lt;&lt; &#x27;\n&#x27;;
+}
+
+int main() {
+    f();
+    g(1, 2);
+    return 0;
+}</code></pre><blockquote id="10c2e807-d74f-8018-bf5a-d47967fecb08" class="">int f() { … }</blockquote><p id="10c2e807-d74f-80bd-8c87-c24f264b9e7e" class="">Функция - нечто, что мы вызываем в других функциях (main - тоже функция)</p><p id="10c2e807-d74f-80ab-b9c1-d14e08c3d09d" class="">Чтобы обьявить функцию, надо прописать возвращаемый тип (что функция вернет), имя функции, аргументы (в круглых скобках) и непосредственно тело функции</p><blockquote id="10c2e807-d74f-8004-9f9b-e06d49e70270" class="">return 1;</blockquote><p id="10c2e807-d74f-80af-ab2d-e069dd5a41dc" class="">Т.к. функция возвращает целочисленный тип, то в некоторой строке нам надо выйти из функции и “отдать” какое-то число. Как раз это делает return.</p><blockquote id="10c2e807-d74f-807d-bd17-c7e94c2e4110" class="">void g(int a, int b) { … }</blockquote><p id="10c2e807-d74f-805c-a8bc-ea26bdfe6933" class="">Функция может не возвращать ничего, для этого вместо типа пишется void.</p><p id="10c2e807-d74f-802b-b7df-fea804871ae6" class="">Чтобы передать некоторые аргументы в функцию, надо прописать собственно типы и переменные, которые туда передаются.</p><hr id="10c2e807-d74f-8043-a693-f943d24e7120"/><h3 id="10c2e807-d74f-807e-b84d-d918e51b1a6c" class="">Перегрузка функций</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="10c2e807-d74f-8044-a10a-cc014d29f3b8" class="code"><code class="language-C++">void f(int x) {
+    cout &lt;&lt; x &lt;&lt; &#x27; &#x27;;
+}
+
+int f(int x, int y) {
+    return x + y;
+}</code></pre><blockquote id="10c2e807-d74f-806e-8205-d6001a6044f5" class="">Функции с одинаковыми именами можно создавать, это называется перегрузкой</blockquote><p id="10c2e807-d74f-80b8-bbc8-fa9b64c53e58" class="">Как мы видим, у функций с одним именем может быть разный возвращаемый тип, это ни на что не влияет (нет правила, что они должны быть одинаковыми)</p><p id="10c2e807-d74f-80e3-9b12-c35273035a08" class="">Здесь идет перегрузка по кол-ву аргументов</p><blockquote id="10c2e807-d74f-80ef-9225-ef4ca45e3df1" class="">f(1.0);</blockquote><p id="10c2e807-d74f-8007-addb-d5c7b14a5a73" class="">Мы не обязаны вызывать функцию в точности от тех типов, которые прописаны. Например, в данном вызове произойдет конверсия float → int</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="10c2e807-d74f-80d3-9310-fce609247db2" class="code"><code class="language-C++">int add(int x, int y) {
+    cout &lt;&lt; &quot;int\n&quot;;
+    return x + y;
+}
+
+long long add(long long x, long long y) {
+    cout &lt;&lt; &quot;long long\n&quot;;
+    return x + y;
+}
+
+int main() {
+    int a, b;  // int, but if long long -&gt; long long version
+    cin &gt;&gt; a &gt;&gt; b;
+    cout &lt;&lt; add(a, b);
+    return 0;
+}</code></pre><blockquote id="10c2e807-d74f-8071-93f6-ef63dcf186b2" class="">Перегрузка по типу аргументов</blockquote><p id="10c2e807-d74f-8012-9be2-e9a1c2c80466" class="">Компилятор выбирает функцию, которая больше подходит (мы передаем два инта, видим, что есть подходящая функция и вызываем ее)</p><blockquote id="10c2e807-d74f-808b-8537-d42f9e67f3a1" class="">Если бы у нас было две функции add(int x, long long y) и add(long long x, int y)</blockquote><p id="10c2e807-d74f-8053-807c-d4d65c7d763d" class="">В таком случае была бы ошибка компиляции (CE) т.к. просто нельзя выбрать, какая из них предпочтительнее</p><blockquote id="10c2e807-d74f-803c-840b-db2e8fb5715c" class="">Если удалить функцию от int</blockquote><p id="10c2e807-d74f-80a6-8cb6-f938fb0dfb83" class="">Очевидно, все будет работать, просто неявно будет вызвано преобразование int → long long.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="10c2e807-d74f-8076-ab5d-fae447651191" class="code"><code class="language-C++">#include &lt;iostream&gt;
+
+using namespace std;
+
+void f(double a) {
+    cout &lt;&lt; &quot;double&quot;;
+}
+
+void f(int a) {
+    cout &lt;&lt; &quot;int&quot;;
+}
+
+int main() {
+    int i = 1;
+    f(i); // ??
+
+    float fl = 2;
+    f(fl); // ??
+
+    double d = 3;
+    f(d); // ??
+
+    long long ll = 4;
+    f(ll); // ??
+}</code></pre><blockquote id="10c2e807-d74f-8042-afb7-f8fcb9f6dde3" class="">int</blockquote><p id="10c2e807-d74f-80a5-a087-ccfa4057e5af" class="">Тут есть полное соввпадение по int’y, поэтому все корректно</p><blockquote id="10c2e807-d74f-802b-9283-c057e42c5cf3" class="">double</blockquote><p id="10c2e807-d74f-80c6-a989-ec65e85cd11e" class="">Тут есть полное соввпадение по double’y, поэтому все корректно</p><blockquote id="10c2e807-d74f-801f-b5b9-e61bac737bc1" class="">float</blockquote><p id="10c2e807-d74f-801c-b5a2-c588c12edfcb" class="">Нет точного совпадения, но при этом логично, что “расширить” float → double лучше, чем “обрезать” float → int. А значит выберется версия double</p><blockquote id="10c2e807-d74f-8066-9fc0-f504a3ddcaf5" class="">long long</blockquote><p id="10c2e807-d74f-8092-ac44-e6836d11dae4" class="">Будет CE, т.к. “обрезать” long long → int и long long → double одинаково плохо с точки зрения компилятора. Поэтому он не может выбрать какую-то конкретную версию сам.<br/>*Спойлер: конкретную версию можно вызвать от long long, но это далеко в будущем.<br/></p><hr id="10c2e807-d74f-808e-a537-efc193395c9b"/><h3 id="10c2e807-d74f-8043-abf0-c6a45af2372a" class="">Пример применения (из олимпиадного опыта =)</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="10c2e807-d74f-8013-9f80-e0019d182b1b" class="code"><code class="language-C++">#include &lt;iostream&gt;
+
+using namespace std;
+
+void solve() {
+    // code
+}
+
+int main() {
+    int t = 1;
+    cin &gt;&gt; t;
+    while (t--) {
+        solve();
+    }
+    return 0;
+}</code></pre><blockquote id="10c2e807-d74f-80d1-adc7-f091c85ce39b" class="">Что тут происходит?</blockquote><p id="10c2e807-d74f-80f9-8bae-f795b8ae5d77" class="">Часто в задачах есть мультитесты, когда вам вводят число тестов и они рассматриваются независимо бывает удобно вынести обработку каждого случая в отдельную функцию.</p><blockquote id="10c2e807-d74f-802e-bdfd-edb0b557b1e0" class="">int t = 1;<br/>cin &gt;&gt; t;<br/></blockquote><p id="10c2e807-d74f-80c7-bcf5-e9d03babbee7" class="">Считаем кол-во тестов. Если в задаче нет мультитестов, то строчку с cin можно просто закомментировать и тест будет 1.</p><blockquote id="10c2e807-d74f-8044-85f8-f09263567d68" class="">while (t--) { solve(); }</blockquote><p id="10c2e807-d74f-8065-8d7c-d5b632882366" class="">Можно понять, что данный while выполнится как раз t раз.</p><hr id="10c2e807-d74f-8035-982c-ea29241fce30"/><h3 id="10c2e807-d74f-8026-a314-e8b2cf8546fd" class="">Передача по ссылке</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="10c2e807-d74f-8083-a777-d562b2c522f9" class="code"><code class="language-C++">#include &lt;iostream&gt;
+
+using namespace std;
+
+void f(int&amp; a) {
+    a += 1;
+}
+
+int main() {
+    int a = 1;
+    f(a);
+    cout &lt;&lt; a &lt;&lt; &#x27; &#x27;;
+    return 0;
+}</code></pre><blockquote id="10c2e807-d74f-8078-939a-dd7d5b238e4b" class="">Идея передачи по ссылке</blockquote><p id="10c2e807-d74f-80d0-be90-fbddfcc00098" class="">Часто, вызывая функцию, мы не хотим копировать наш изначальный объект. Но больше хочется, чтобы изменения, произошедшие в функции, отразились на изначальной переменной. Собственно это и делает передача по ссылке.</p><blockquote id="10c2e807-d74f-8024-97d4-d50c97137618" class="">void f(int&amp; a) { … }</blockquote><p id="10c2e807-d74f-80b6-b06e-e7d749af0ec7" class="">В данном случае переменная а увеличилась на единицу в функции, но при этом переменная вне функции также изменилась (по сути это на самом деле и есть эта переменная)</p><p id="10c2e807-d74f-80b6-830e-cc0e7456f489" class="">Чуть подробнее про сами ссылки дальше</p><hr id="10c2e807-d74f-807d-bd92-dac15cc997e8"/><h3 id="10c2e807-d74f-8081-bf97-dccf73363250" class="">Перегрузка по ссылке (неоднозначный пример)</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="10c2e807-d74f-80f6-b58f-f52f1448e4e4" class="code"><code class="language-C++">#include &lt;iostream&gt;
+
+using namespace std;
+
+void f(int a) {
+    // code
+}
+
+void f(int&amp; a) {
+    // code
+}
+
+int main() {
+    int a = 1;
+    int&amp; b = a;
+    
+    f(a); // CE
+    f(b); // CE
+    return 0;
+}</code></pre><blockquote id="10c2e807-d74f-8053-bfc8-c4aa06864f02" class="">Что происходит и почему CE?</blockquote><p id="10c2e807-d74f-8097-b795-c2459e60a0e0" class="">Стоит понимать ссылки, как “тоже самое под другим названием”. Поэтому такая перегрузка функций работает на уровне создания, но нормально их вызывать не получится.</p><hr id="10c2e807-d74f-80e4-a895-ed894b59258f"/><h1 id="10c2e807-d74f-801e-b200-f5b6c05d18d0" class="">Указатели, ссылки</h1><p id="10c2e807-d74f-809e-a95d-f4067ffffc58" class="">Когда мы создаем какую-либо переменную, она, очевидно, где-то в памяти должна находится.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="10c2e807-d74f-80ec-9db6-dacb49aea318" class="code"><code class="language-C++">#include &lt;iostream&gt;
+
+using namespace std;
+
+int main() {
+    int a = 1;
+    int* pointer = &amp;a;
+    cout &lt;&lt; pointer &lt;&lt; &#x27;\n&#x27;;
+    cout &lt;&lt; *pointer &lt;&lt; &#x27;\n&#x27;;
+    return 0;
+}</code></pre><blockquote id="10c2e807-d74f-80f7-9919-d3b44c92f4c5" class="">&amp;a</blockquote><p id="10c2e807-d74f-8089-bd18-fa223b19a845" class="">Чтобы взять у переменной адрес в памяти, используется амперсанд.</p><blockquote id="10c2e807-d74f-80b6-812c-eb605c665200" class="">int*</blockquote><p id="10c2e807-d74f-806f-92b1-cf967b548910" class="">Это как раз тип указателя на инт. type* означает, что в этой переменной лежит адрес чего то типа type.</p><blockquote id="10c2e807-d74f-8041-8709-f16172b726eb" class="">cout &lt;&lt; pointer;</blockquote><p id="10c2e807-d74f-80de-acf3-df1e76a502cd" class="">Указатель можно вывести, но если мы это сделаем, то получим адрес в памяти, который просто как адрес нам мало чем поможет)</p><blockquote id="10c2e807-d74f-8039-9eff-ff276d6c9ba6" class="">cout &lt;&lt; *pointer;</blockquote><p id="10c2e807-d74f-8003-b649-c95354fa47cd" class="">Указатели можно разыменовывать, чтобы узнать содержимое памяти по конкретному адресу.</p><hr id="10c2e807-d74f-801c-8df4-fbbf039826c1"/><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="10c2e807-d74f-80f9-88af-f540ecfd4d58" class="code"><code class="language-C++">#include &lt;iostream&gt;
+
+using namespace std;
+
+int main() {
+    int a = 1;
+    int&amp; b = a;
+    b++;
+    cout &lt;&lt; a &lt;&lt; &#x27; &#x27;;
+    return 0;
+}</code></pre><blockquote id="10c2e807-d74f-8050-b3ca-f155480580be" class="">int&amp; b = a;</blockquote><p id="10c2e807-d74f-80e0-b080-d6770afa782e" class="">Объявили переменную b, которая является ссылкой на a. Это значит, что мы по сути сделали новое называние для существующей переменной. Везде, где мы используем b означает ровно тоже самое, как если бы мы использовали a.</p><blockquote id="10c2e807-d74f-80f0-aa7e-fc67cb079c77" class="">b++;<br/>cout &lt;&lt; a &lt;&lt; ‘ ‘;<br/></blockquote><p id="10c2e807-d74f-80da-99e1-fb1ff9e54a95" class="">В качестве примера. Изменяем b, но а также изменится, что можно понять из вывода.</p><hr id="10c2e807-d74f-80df-9daf-f1dd833c395e"/><h1 id="10c2e807-d74f-8000-95a1-c040c74e9fe7" class="">Массивы</h1><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="10c2e807-d74f-807d-adfb-f8e2ea370c76" class="code"><code class="language-C++">#include &lt;iostream&gt;
+
+using namespace std;
+
+int main() {
+    int a[100];
+    int b[] = {1, 2, 3, 4, 5, 6};
+    int c[100] = {1, 2, 3, 4, 5, 6};
+    int d[5][5];
+
+    int n;
+    cin &gt;&gt; n;
+    int e[n]; // =&lt;
+
+    cin &gt;&gt; a[1];
+    cout &lt;&lt; a[1];
+
+    for (int i = 0; i &lt; n; i++) {
+        cin &gt;&gt; e[i];
+    }
+}</code></pre><blockquote id="10c2e807-d74f-803c-9fe9-da6670b393d9" class="">int a[100];</blockquote><p id="10c2e807-d74f-805c-a4cf-ca31ab86f613" class="">Так мы создали массив длины 100. Далее просто другие способы объявления массива.</p><blockquote id="10c2e807-d74f-802d-b85f-e32c6acbbbad" class="">int b[] = {1, 2, 3, 4, 5, 6};</blockquote><p id="10c2e807-d74f-80fc-b623-f6281f5091a3" class="">Можно не указывать размер массива, если мы задаем его перечислением.</p><blockquote id="10c2e807-d74f-8034-be67-d272b1989eff" class="">int c[100] = {1, 2, 3, 4, 5, 6};</blockquote><p id="10c2e807-d74f-80bd-b45b-e77b4ca24222" class="">Создали массив длины 100, но при этом задали первые 6 его элементов (остальные нули).</p><blockquote id="10c2e807-d74f-80be-aa20-d7a90dbf9075" class="">int d[5][5];</blockquote><p id="10c2e807-d74f-8028-a074-ea3df6c3e1f3" class="">Двумерный массив (по аналогии можно создать и больше мерностей)</p><blockquote id="10c2e807-d74f-80e2-8056-ee95f94e1bc7" class="">int e[n];</blockquote><p id="10c2e807-d74f-80b6-bc93-d6655f85c1c9" class="">Массив переменной длины. Так делать не рекомендуется (лучше создать массив большой, размера 10’000 например и не использовать не нужное, это связано с расположением в памяти)</p><blockquote id="10c2e807-d74f-8068-af01-efecc84ac024" class="">cin &gt;&gt; e[i];</blockquote><p id="10c2e807-d74f-8032-9bc6-f633b1a606ee" class="">Индексы в массивах от 0 до n - 1 (где n - размер массива). Например, считать весь массив.</p><hr id="10c2e807-d74f-8007-8c5d-c75edf4141d2"/><h1 id="10c2e807-d74f-804d-93a6-f5444a542fbf" class="">Vector!</h1><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="10c2e807-d74f-80a1-95f3-f9ab18dbf4de" class="code"><code class="language-C++">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+
+int main() {
+    vector&lt;int&gt; a(100);
+    vector&lt;int&gt; b = {1, 2, 3, 4, 5, 6, 7};
+    vector&lt;int&gt; c(100, 1);
+    vector&lt;vector&lt;int&gt;&gt; d;
+    vector&lt;vector&lt;int&gt;&gt; e(100, vector&lt;int&gt; (50));
+    vector&lt;int&gt; vec;
+    
+    int n;
+    cin &gt;&gt; n;
+    vector&lt;int&gt; v(n);
+
+    cin &gt;&gt; a[1];
+    cout &lt;&lt; a[1];
+
+    for (int i = 0; i &lt; n; i++) {
+        cin &gt;&gt; v[i];
+    }
+}</code></pre><p id="10c2e807-d74f-80bf-bfe9-cf2b7e0d4bc5" class="">Способы создания:</p><blockquote id="10c2e807-d74f-801d-93f8-d88e2be43835" class="">vector&lt;int&gt; a(100); </blockquote><p id="10c2e807-d74f-8065-9e71-cf8fbb397db1" class="">Аналогия int a[100]; Создали вектор длины 100 (по умолчанию заполнен нулями)</p><blockquote id="10c2e807-d74f-8045-9978-f6c945ddf847" class="">vector&lt;int&gt; b = {1, 2, 3, 4, 5, 6, 7};</blockquote><p id="10d2e807-d74f-80e4-9cbe-c532ce4a323f" class="">Аналогично можно создать вектор перечислением.</p><blockquote id="10d2e807-d74f-8009-99cf-f5b0a08713f8" class="">vector&lt;int&gt; c(100, 1);</blockquote><p id="10d2e807-d74f-806d-a946-e88ec9708152" class="">Вектор, в котором заданы элементы по умолчанию.</p><blockquote id="10d2e807-d74f-8067-81b0-e6fc418e5f0c" class="">vector&lt;vector&lt;int&gt;&gt; d;</blockquote><p id="10d2e807-d74f-8058-bde5-c3a4842bdc94" class="">Двумерный пустой вектор</p><blockquote id="10d2e807-d74f-8035-890a-ecb4cea3edee" class="">vector&lt;vector&lt;int&gt;&gt; e(100, vector&lt;int&gt; (50));</blockquote><p id="10d2e807-d74f-8069-968f-d0ccb3e38865" class="">Двумерный вектор размера 100 х 50</p><blockquote id="10d2e807-d74f-8042-9788-eae745843f8d" class="">vector&lt;int&gt; v(n);</blockquote><p id="10d2e807-d74f-8065-bda3-e3b3862eeca7" class="">Вектор длины n (как раз с переменной длиной рекомендую делать так).</p><hr id="10d2e807-d74f-80b2-89f5-ebf9399354f4"/><h3 id="10d2e807-d74f-80de-9a2b-d340f92a7fa0" class="">Vector - методы</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="10d2e807-d74f-80f6-8a05-f58288dbf679" class="code"><code class="language-C++">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+
+int main() {
+    int n; cin &gt;&gt; n;
+    vector&lt;int&gt; a(n);
+    for (int i = 0; i &lt; n; i++) cin &gt;&gt; a[i];
+    
+    cout &lt;&lt; a.size() &lt;&lt; &#x27;\n&#x27;; // n
+    cout &lt;&lt; a.front() &lt;&lt; &#x27;\n&#x27;; // a[0]
+    cout &lt;&lt; a.back() &lt;&lt; &#x27;\n&#x27;;  // a[n - 1]
+    cout &lt;&lt; a.at(n) &lt;&lt; &#x27; &#x27; &lt;&lt; a.at(1) &lt;&lt; &#x27;\n&#x27;; // RE, a.at(1) = a[1];
+    cout &lt;&lt; a.empty() &lt;&lt; &#x27;\n&#x27;; // false;
+    
+    a.pop_back();
+    a.push_back(1);
+    a.clear();
+    
+    a.begin();
+    a.end();
+}</code></pre><blockquote id="10d2e807-d74f-8031-8cfb-f45fcbd9a729" class="">a.size(); - возвращает актуальное количество элементов</blockquote><blockquote id="10d2e807-d74f-8012-b8d9-c6f409ff9348" class="">a.front(); - возвращает первый элемент</blockquote><blockquote id="10d2e807-d74f-80a3-b728-de5b4928e58b" class="">a.back(); - возвращает последний элемент</blockquote><blockquote id="10d2e807-d74f-80dc-b7e1-d8c9a654d7aa" class="">a.at(i); - дает элемент по индексу i<br/>*в случае ошибки индекса (обращение за границы) кидает ошибку, а не UB (неопределенное поведение)<br/></blockquote><blockquote id="10d2e807-d74f-80e5-ace5-f1e780bc178d" class="">a.empty(); - возвращает true/false (если вектор пустой → true)</blockquote><p id="10d2e807-d74f-8032-9bd8-d877de40da35" class="">В отличие от массива вектор можно менять по размеру</p><blockquote id="10d2e807-d74f-802d-be11-cb5622e54fec" class="">a.pop_back(); - удаляет последний элемент</blockquote><blockquote id="10d2e807-d74f-80ff-af72-eaca0dfbed6d" class="">a.push_back(1); - добавляет новый элемент в конец вектор</blockquote><blockquote id="10d2e807-d74f-8037-a647-d88285b63d3a" class="">a.clear(); - удаляет все элементы вектора (не очищает память!)</blockquote><blockquote id="10d2e807-d74f-804e-b226-de6f010b59c9" class="">a.begin(); - указатель на началбный элемент<br/>a.end(); - указатель ЗА последний элемент<br/>*в действительности это итераторы, но это вам пока не надо<br/></blockquote><hr id="10d2e807-d74f-80a9-8e03-c4f09e5b919f"/><h1 id="10d2e807-d74f-807a-8984-dcc7882a3749" class="">&lt;algorithm&gt;</h1><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="10d2e807-d74f-8097-88c2-fc3c05421bc4" class="code"><code class="language-C++">#include &lt;algorithm&gt;
+#include &lt;vector&gt;
+#include &lt;iostream&gt;
+
+using namespace std;
+
+int main() {
+    int n; cin &gt;&gt; n;
+    vector&lt;int&gt; a(n);
+    for (int i = 0; i &lt; n; i++)
+        cin &gt;&gt; a[i];
+    int b[100];
+    for (int i = 0; i &lt; 100; i++)
+        cin &gt;&gt; b[i];
+
+    sort(a.begin(), a.end());
+    sort(b, b + 100);
+
+    reverse(a.begin(), a.end());
+    reverse(b, b + 100);
+
+    cout &lt;&lt; count(a.begin(), a.end(), 1) &lt;&lt; &#x27;\n&#x27;;
+    cout &lt;&lt; *find(a.begin(), a.end(), 1) &lt;&lt; &#x27;\n&#x27;;
+    return 0;
+}</code></pre><p id="10d2e807-d74f-8006-aac0-dc3ee6ba8051" class="">Есть достаточно полезная встроенная библиотека &lt;algorithm&gt;.  Мы часто будем с ней сталкиваться, поэтому рассмотрим некоторые функции из нее)</p><blockquote id="10d2e807-d74f-80dc-b8e0-f6c0b3bcd530" class="">sort(a.begin(), a.end());<br/>sort(b, b + 100);<br/></blockquote><p id="10d2e807-d74f-80c8-b1c7-c13163a91bde" class="">Пока что рассуждайте, что итератор=указатель (вообще любой указатель это итератор)<br/>А так это функция, которая сортирует отрезок между некоторым началом и концом.<br/></p><p id="10d2e807-d74f-806a-a02b-cbe7d2e93b19" class="">sort принимает два итератора (на начало и ЗА последний элемент). С a.begin() и a.end() в целом все понятно - это как раз функции, которые нужны для получения этих итераторов.</p><p id="10d2e807-d74f-80eb-9f45-caf9ee8d26b9" class="">Но с массивом это выглядит необычно. В действительности b это указатель на первый элемент. Т.к. к указателю можно прибавить число, то в b + 100 как раз окажется указатель за последний элемент.</p><blockquote id="10d2e807-d74f-80ea-952c-ff6815b6028e" class="">reverse(a.begin(), a.end());<br/>reverse(b, b + 100);<br/></blockquote><p id="10d2e807-d74f-80b9-b4ab-d87888fced26" class="">С точки зрения использования эта функция работает также, как и sort(), только вместо сортировки просто разворачивает вектор/массив. </p><blockquote id="10d2e807-d74f-8075-a135-d182b3286071" class="">count(a.begin(), a.end(), 1);</blockquote><p id="10d2e807-d74f-8074-9dd2-f26d8814ca61" class="">Функция, которая используется для подсчета количества определенных элементов.</p><blockquote id="10d2e807-d74f-8068-a9e3-d4c2ec9b8ec2" class="">find(a.begin(), a.end(), 1);</blockquote><p id="10d2e807-d74f-8025-8278-fa3a7ba305ff" class="">Дает нам указатель на первый элемент, равный заданному (в реальности итератор, поэтому без разыменования его не вывести.<br/>*Можно получить индекс, если посчитать find(a.begin(), a.end(), 1) - a.begin();<br/></p><hr id="10d2e807-d74f-80c1-8d6d-f8352d1cca62"/><h1 id="10d2e807-d74f-8019-99a6-c7351d0b92ab" class="">Фичи (полезные и не только)</h1><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="10d2e807-d74f-801e-9c9f-f59720f10140" class="code"><code class="language-C++">#include &lt;iostream&gt;
+
+using namespace std;
+
+void f(int a, double b);
+
+void g() {
+    f(1, 1.0);
+}
+
+void f(int a, double) {
+    if (a == 1) return;
+    g();
+    cout &lt;&lt; &quot;Let&#x27;s go&quot; &lt;&lt; &#x27;\n&#x27;;
+}
+
+void solve() {
+    f(2, 2.0);
+
+    int a[100];
+    cout &lt;&lt; a[1] &lt;&lt; &#x27; &#x27; &lt;&lt; 1[a] &lt;&lt; &#x27;\n&#x27;;
+    int* b = a + 100;
+    cout &lt;&lt; b[-1] &lt;&lt; &#x27; &#x27; &lt;&lt; b[-2] &lt;&lt; &#x27;\n&#x27;;
+}
+
+int main() {
+    cin.tie(0);  // cin.tie(nullptr);
+    cout.tie(0); // cout.tie(nullptr);
+    ios_base::sync_with_stdio(0); // false;
+    
+    int t = 1;
+    cin &gt;&gt; t;
+    while (t--) {
+        solve();
+    }
+
+    return 0;
+}</code></pre><blockquote id="10d2e807-d74f-8030-942a-df938c3c93fb" class="">void f(int a, double b);</blockquote><p id="10d2e807-d74f-80fe-9a3e-fbf059a425d7" class="">Функции можно объявить до определния самого тела (например, это нужно когда две функции вызывают друг друга)</p><blockquote id="10d2e807-d74f-80cf-9fe7-db9a6a6eea70" class="">void f(int, double) { … }</blockquote><p id="10d2e807-d74f-80ac-838b-ebbe51ae7e77" class="">Если некоторые аргумента не используются в функции, то можно не прописывать им названия, а просто написать тип</p><blockquote id="10d2e807-d74f-80ea-a8a1-eae167e8dc0f" class="">int a[100];<br/>cout &lt;&lt; a[1] &lt;&lt; &#x27; &#x27; &lt;&lt; 1[a] &lt;&lt; &#x27;\n&#x27;;<br/></blockquote><p id="10d2e807-d74f-80bf-b1b0-edcb4bc19e52" class="">Забавно, но в с++ a[i] это тоже самое, что *(a + i), поэтому 1[a] == *(1 + a) и работает вполне корректно</p><blockquote id="10d2e807-d74f-8028-9aa0-d712a24b5a85" class="">int* b = a + 100;</blockquote><p id="10d2e807-d74f-80cc-8b2d-c61a0b3365e6" class="">В действительности a это указатель, поэтому к нему можно что нибудь добавить некоторое число)</p><blockquote id="10d2e807-d74f-80f7-bf7a-e3ca57055562" class="">cout &lt;&lt; b[-1] &lt;&lt; &#x27; &#x27; &lt;&lt; b[-2] &lt;&lt; &#x27;\n&#x27;;</blockquote><p id="10d2e807-d74f-80a6-ba6b-e3ed085998c1" class="">Так как b теперь указывает за последний элемент, то если мы возьмем b[-1], то получим <br/>b[-1] = *(b - 1) = *(a + n - 1) = a[n - 1] - последний элемент)<br/></p><blockquote id="10d2e807-d74f-802b-9e33-f50ae3dde6a3" class="">cin.tie(0);                                     // cin.tie(nullptr);<br/>cout.tie(0);                                  // cout.tie(nullptr);<br/>ios_base::sync_with_stdio(0); // false;<br/></blockquote><p id="10d2e807-d74f-8072-b73b-e203f692b5c6" class="">На уровне системы это “как-то” ускоряет ввод/вывод. Как это работает “под капотом” на олимпиадах можно в целом и не знать.</p><p id="10d2e807-d74f-8096-8ec6-c4cae3994620" class="">С точки зрения кодстайла лучше писать закомментированную версию (так не будет неявных конверсий)</p><hr id="10d2e807-d74f-8070-bb2e-fb87765fe493"/><h1 id="1222e807-d74f-80d5-a008-c288e95ecaa9" class="">Ending</h1><p id="1222e807-d74f-8032-8c24-c939997c1666" class=""><mark class="highlight-gray"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>© Created by Anton Vitiuk 09.2024</mtext></mrow><annotation encoding="application/x-tex">© \text { Created by Anton Vitiuk 09.2024}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0833em;vertical-align:-0.1944em;"></span><span class="mord text"><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8889em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">c</span></span></span><span style="top:-3.1944em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body accent-full" style="left:0em;top:.2em;"><span class="mord">◯</span></span></span></span></span></span></span></span><span class="mord text"><span class="mord"> Created by Anton Vitiuk 09.2024</span></span></span></span></span></span><span>﻿</span></span></mark></p><p id="1222e807-d74f-80ee-bc24-eabf0ee18ff3" class=""><a href="https://t.me/MrAnt1vit">telegram</a> <a href="https://vk.com/mrant1vit">vk</a> </p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
