@@ -1,0 +1,856 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>VI Testing 1. Key Tasks</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="11b2e807-d74f-80df-8868-d9948b0304b5" class="page sans"><header><h1 class="page-title">VI Testing 1. Key Tasks</h1><p class="page-description"></p></header><div class="page-body"><blockquote id="11b2e807-d74f-8024-92b9-e2e0454885e6" class="">На занятии был контроль по блоку, так что здесь будут некоторые задачи со всех тем, которые я считаю важными и умение решать их может помочь в будущем. (Например, некоторые из них встречаются достаточно часто в качестве подзадачи. Иногда, буквально в таком же виде.)</blockquote><nav id="11b2e807-d74f-80e2-bae6-ca22c95a81bd" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#11b2e807-d74f-8017-a40a-de80cbd2824e">II.H Котлеты</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#11b2e807-d74f-80ff-99b1-c4a01e3c23c9">II.K Краски</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#11b2e807-d74f-80e1-960d-e20d470caa31">III.H I Wanna Be the Guy</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#11b2e807-d74f-8078-8103-ed625f6481d0">III.I Киану Ривз</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#11b2e807-d74f-80c8-a327-cfaf5b19e98c">III.K Побег</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#11b2e807-d74f-80c3-96e6-dfc4eeabbcf9">IV.E Минимум в окне</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#11b2e807-d74f-8066-bc66-fb8885c1038d">IV.G Гистограмма</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#11b2e807-d74f-8081-83aa-eadc677a10b1">IV.H Обратная польская запись </a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#11b2e807-d74f-8040-86a6-e6e712e2dc14">Ending</a></div></nav><hr id="11b2e807-d74f-8069-9bd4-e14565e43c6a"/><h3 id="11b2e807-d74f-8017-a40a-de80cbd2824e" class="">II.H Котлеты</h3><figure id="11b2e807-d74f-80cd-b9ac-cdca63962019" class="image"><a href="VI%20Testing%201%20Key%20Tasks%2011b2e807d74f80df8868d9948b0304b5/image.png"><img style="width:707.984375px" src="VI%20Testing%201%20Key%20Tasks%2011b2e807d74f80df8868d9948b0304b5/image.png"/></a></figure><ul id="11b2e807-d74f-804d-8445-d94f65f9d306" class="bulleted-list"><li style="list-style-type:disc">Для начала надо понять, почему в последнем примере ответ 21, а не 24. Казалось бы, мы кладем 2 котлеты, жарим их с двух сторон (это 6 минут), делаем так 3 раза, получаем, что у нас 6 котлет пожарено за 18 минут. Тогда пожарив последнюю, получится 24.</li></ul><ul id="11b2e807-d74f-8001-bdd1-d0a3cb21442e" class="bulleted-list"><li style="list-style-type:disc">Но мы можем сделать по другому. Пожарим по 3 минуты 1ую и 2ую котлеты. Дальше оставим 2ую и 3ью, а затем 1ую и 2ую. Получаем, что за 9 минут мы пожарили 3 котлеты. А для оставшихся 4х мы можем делать то же, что и раньше. Тогда как раз получится 9 + 4 * 3 = 21 минута.</li></ul><ul id="11b2e807-d74f-80d6-909a-dcd41de81c05" class="bulleted-list"><li style="list-style-type:disc">Теперь заметим, что если у нас достаточно много котлет, то мы можем считать просто их стороны и выяснять, сколько времени нам понадобится, чтобы просто пожарить 2m сторон. В действительности если котлет хотя бы столько же, сколько мест на сковороде, то такая логика применима.</li></ul><ul id="11b2e807-d74f-805f-bb9b-c9f099d9b7eb" class="bulleted-list"><li style="list-style-type:disc">Но если котлет меньше, чем мест, то, очевидно нам понадобится просто 2k минут.</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="11b2e807-d74f-80c9-a7c8-f4855f787f8e" class="code"><code class="language-C++">#include &lt;iostream&gt;
+using namespace std;
+
+void solve() {
+    int n, m, k;
+    cin &gt;&gt; n &gt;&gt; k &gt;&gt; m;
+    if (m &gt;= n)
+        cout &lt;&lt; (2 * m + n - 1) / n * k;
+    else
+        cout &lt;&lt; 2 * k;
+}
+
+int main() {
+    solve();
+    return 0;
+}</code></pre><hr id="11b2e807-d74f-800a-9662-f5cbf5d3affd"/><h3 id="11b2e807-d74f-80ff-99b1-c4a01e3c23c9" class="">II.K Краски</h3><figure id="11b2e807-d74f-80cd-b16f-d34ce04ddea2" class="image"><a href="VI%20Testing%201%20Key%20Tasks%2011b2e807d74f80df8868d9948b0304b5/image%201.png"><img style="width:702px" src="VI%20Testing%201%20Key%20Tasks%2011b2e807d74f80df8868d9948b0304b5/image%201.png"/></a></figure><ul id="11b2e807-d74f-8059-9894-f36d368ab81b" class="bulleted-list"><li style="list-style-type:disc">В этой задаче надо осознать, что она выглядит сложно, но в действительности имеет очень простое решение.</li></ul><ul id="11b2e807-d74f-8013-87a8-f8a5cbee3174" class="bulleted-list"><li style="list-style-type:disc">Представим, что мы зафиксировали какой-то отрезок и у него есть какая то величина (r - l - c(l, r)). Тогда, если мы попробуем его увеличить (на 1 элемент влево или вправо), то эта величина либо не изменится, либо станет только больше.</li></ul><ul id="11b2e807-d74f-806a-bfaf-c953dd488b8b" class="bulleted-list"><li style="list-style-type:disc">Значит, что пока мы увеличиваем отрезок наш ответ точно не становится хуже. Ну а это уже означает, что взяв весь массив как отрезок, мы получим максимальный результат (да, возможно можно взять и отрезок поменьше, но нас никто об этом не просит)</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="11b2e807-d74f-8065-8d5a-d10c876fbb90" class="code"><code class="language-C++">#include &lt;iostream&gt;
+using namespace std;
+
+void solve() {
+    int n;
+    cin &gt;&gt; n;
+    int x;
+    for (int i = 0; i &lt; n; i++) cin &gt;&gt; x;
+    cout &lt;&lt; 1 &lt;&lt; &#x27; &#x27; &lt;&lt; n &lt;&lt; &#x27;\n&#x27;;
+}
+
+int main() {
+    int t;
+    cin &gt;&gt; t;
+    while (t--) {
+        solve();
+    }
+    return 0;
+}</code></pre><hr id="11b2e807-d74f-8033-9520-c9a9ef7dccab"/><h3 id="11b2e807-d74f-80e1-960d-e20d470caa31" class="">III.H I Wanna Be the Guy</h3><figure id="11b2e807-d74f-80c0-9809-c3c92bedc6a9" class="image"><a href="VI%20Testing%201%20Key%20Tasks%2011b2e807d74f80df8868d9948b0304b5/image%202.png"><img style="width:707.984375px" src="VI%20Testing%201%20Key%20Tasks%2011b2e807d74f80df8868d9948b0304b5/image%202.png"/></a></figure><ul id="11b2e807-d74f-80a6-9772-e749fd184737" class="bulleted-list"><li style="list-style-type:disc">Можно просто с помощью сета закинуть туда все элементы и проверить, что его размер равен n.</li></ul><ul id="11b2e807-d74f-807b-8cda-ca5223f84efc" class="bulleted-list"><li style="list-style-type:disc">Но тогда и асимптотика будет O(n log n), что не критично, но можно лучше. Для этого заметим, что все элементы от 1 до n. </li></ul><ul id="11b2e807-d74f-8031-afff-cad2931e0e61" class="bulleted-list"><li style="list-style-type:disc">Тогда создадим вектор на n элементов и отметим там все, что встречаются у нас. А потом проверим, что все элементы были отмечены.</li></ul><hr id="11b2e807-d74f-80c5-9530-f77b3a4411b8"/><h3 id="11b2e807-d74f-8078-8103-ed625f6481d0" class="">III.I Киану Ривз</h3><figure id="11b2e807-d74f-8012-be53-ce87ac5c6b5d" class="image"><a href="VI%20Testing%201%20Key%20Tasks%2011b2e807d74f80df8868d9948b0304b5/image%203.png"><img style="width:707.984375px" src="VI%20Testing%201%20Key%20Tasks%2011b2e807d74f80df8868d9948b0304b5/image%203.png"/></a></figure><figure id="11b2e807-d74f-804f-9903-e6bf98383459" class="image"><a href="VI%20Testing%201%20Key%20Tasks%2011b2e807d74f80df8868d9948b0304b5/image%204.png"><img style="width:707.984375px" src="VI%20Testing%201%20Key%20Tasks%2011b2e807d74f80df8868d9948b0304b5/image%204.png"/></a></figure><ul id="11b2e807-d74f-8089-84bd-ed37ef5bda8f" class="bulleted-list"><li style="list-style-type:disc">Аналогично, сама задача выглядит куда сложнее чем есть на самом деле.</li></ul><ul id="11b2e807-d74f-80be-b7fc-d4485f69c439" class="bulleted-list"><li style="list-style-type:disc">Если нулей и единиц разное число, то одна часть подходит, а если равное, то можно просто откусить у строки один символ и таким образом получить две строки.</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="11b2e807-d74f-800a-8f19-d7e207a91f1f" class="code"><code class="language-C++">#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+
+using namespace std;
+
+void solve() {
+    int n;
+    cin &gt;&gt; n;
+    string str;
+    cin &gt;&gt; str;
+    if (count(str.begin(), str.end(), &#x27;1&#x27;) == n / 2 &amp;&amp; n % 2 == 0) {
+        cout &lt;&lt; 2 &lt;&lt; &#x27;\n&#x27; &lt;&lt; str[0] &lt;&lt; &#x27; &#x27;;
+        for (int i = 1; i &lt; n; i++) cout &lt;&lt; str[i];
+    } else {
+        cout &lt;&lt; 1 &lt;&lt; &#x27;\n&#x27; &lt;&lt; str &lt;&lt; &#x27;\n&#x27;;
+    }
+}
+
+int main() {
+    int t = 1;
+//    cin &gt;&gt; t;
+    while (t--) {
+        solve();
+    }
+    return 0;
+}</code></pre><hr id="11b2e807-d74f-8025-94c4-c13c3ff3c758"/><h3 id="11b2e807-d74f-80c8-a327-cfaf5b19e98c" class="">III.K Побег</h3><figure id="11b2e807-d74f-80ca-9505-c04b2d784cb1" class="image"><a href="VI%20Testing%201%20Key%20Tasks%2011b2e807d74f80df8868d9948b0304b5/image%205.png"><img style="width:707.984375px" src="VI%20Testing%201%20Key%20Tasks%2011b2e807d74f80df8868d9948b0304b5/image%205.png"/></a></figure><ul id="11b2e807-d74f-8013-b2a9-e600e6ff5394" class="bulleted-list"><li style="list-style-type:disc">Разобьем решение на две части.</li></ul><ul id="11b2e807-d74f-80f9-ad1f-cc43c4253cea" class="bulleted-list"><li style="list-style-type:disc">Сначала заметим, что если у каждой клетке удалить правую сторону, то такая расстановка позволит выполнить условие. Получаем ответ ab.</li></ul><ul id="11b2e807-d74f-800a-8bcc-da60d9777c5c" class="bulleted-list"><li style="list-style-type:disc">Тепреь покажем, что меньше не получится. Для этого поймем, что если убрано меньше, чем ab стен, то обьединить мы сможем не больше чем ab областей (а их по сути ab + 1, включая внешнюю). А значит будут две области, которые не соеденены.</li></ul><ul id="11b2e807-d74f-80be-a119-e8a6a2711ebe" class="bulleted-list"><li style="list-style-type:disc">Получаем, что ответ всегда ab.</li></ul><hr id="11b2e807-d74f-8088-825e-d21971f27af5"/><h3 id="11b2e807-d74f-80c3-96e6-dfc4eeabbcf9" class="">IV.E Минимум в окне</h3><figure id="11b2e807-d74f-80a5-9627-dcbcb24d359a" class="image"><a href="VI%20Testing%201%20Key%20Tasks%2011b2e807d74f80df8868d9948b0304b5/image%206.png"><img style="width:707.96875px" src="VI%20Testing%201%20Key%20Tasks%2011b2e807d74f80df8868d9948b0304b5/image%206.png"/></a></figure><ul id="11b2e807-d74f-802a-8474-c80664f31ae4" class="bulleted-list"><li style="list-style-type:disc">Относительно сложная для понимания, но полезная на практике задача. </li></ul><ul id="11b2e807-d74f-80f0-9e32-efee7c0e7b80" class="bulleted-list"><li style="list-style-type:disc">Рекомендую просмотреть построчно, что происходит тут и, по возможности, разобрать.</li></ul><ul id="11b2e807-d74f-8043-90f1-e92a5409f5c6" class="bulleted-list"><li style="list-style-type:disc">Возьмем дек, в нем будем хранить индексы элементы начального массива. Далее рассмотрим первые k элементов. Рассматривая очередной элемент добавим его в конец, но при этом удалим те из добаленных, которые уже точно не станут ответом для будущих отрезков (то есть те элементы с конца, которые больше ≥ текущего).</li></ul><ul id="11b2e807-d74f-80c7-b9fa-d630106edc69" class="bulleted-list"><li style="list-style-type:disc">Получим, что в первом элементе дека как раз будет лежать минмиум на первом отрезке.</li></ul><ul id="11b2e807-d74f-80a1-9ee1-fe0ace93d5b1" class="bulleted-list"><li style="list-style-type:disc">Двигаясь по остальным элементам будем удалять из начала тот, что уже вышел за границу и добавлять очередной в конец, опять же, удаляя те, которые больше не пригодятся.</li></ul><ul id="11b2e807-d74f-8077-8982-f9b2a78eb3fb" class="bulleted-list"><li style="list-style-type:disc">*Для простоты написания кода я в начале добавлю k - 1 элемент, а дальше в цикле рассмотрю все окна.</li></ul><ul id="11b2e807-d74f-80a5-ad8b-e450abefa907" class="bulleted-list"><li style="list-style-type:disc">*Храним мы не элементы, а индексы, чтобы можно было понять, вышел элемент за границу отрезка текущего или еще нет.</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="11b2e807-d74f-8058-9068-cd78851edc50" class="code"><code class="language-C++">#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+#include &lt;vector&gt;
+#include &lt;deque&gt;
+using namespace std;
+
+void solve() {
+    int n, k;
+    cin &gt;&gt; n &gt;&gt; k;
+    vector&lt;int&gt; a(n);
+    for (int i = 0; i &lt; n; i++) {
+        cin &gt;&gt; a[i];
+    }
+    deque&lt;int&gt; deq;
+    for (int i = 0; i &lt; k - 1; i++) {
+        while (!deq.empty() &amp;&amp; a[deq.back()] &gt;= a[i]) deq.pop_back();
+        deq.push_back(i);
+    }
+    for (int i = k - 1; i &lt; n; i++) {
+        while (!deq.empty() &amp;&amp; a[deq.back()] &gt;= a[i]) deq.pop_back();
+        deq.push_back(i);
+        if (deq.front() &lt;= i - k) deq.pop_front();
+        cout &lt;&lt; a[deq.front()] &lt;&lt; endl;
+    }
+}
+
+int main() {
+    int t = 1;
+//    cin &gt;&gt; t;
+    while (t--) {
+        solve();
+    }
+    return 0;
+}</code></pre><hr id="11b2e807-d74f-8084-b7f4-f9c368343795"/><h3 id="11b2e807-d74f-8066-bc66-fb8885c1038d" class="">IV.G Гистограмма</h3><figure id="11b2e807-d74f-8049-ab49-f5d0d64efb58" class="image"><a href="VI%20Testing%201%20Key%20Tasks%2011b2e807d74f80df8868d9948b0304b5/image%207.png"><img style="width:707.984375px" src="VI%20Testing%201%20Key%20Tasks%2011b2e807d74f80df8868d9948b0304b5/image%207.png"/></a></figure><ul id="11b2e807-d74f-809e-9314-cdaa03c0f634" class="bulleted-list"><li style="list-style-type:disc">Также трудная для понимания задача, но иногда применимая на олимпиадах. </li></ul><ul id="11b2e807-d74f-80a7-b6a7-e9394680cf53" class="bulleted-list"><li style="list-style-type:disc">Разобьем задачу не несколько подзадач. Максимальная высоты прямоугольника это одна из высот столбиков (если мы нашли некоторый прямоугольник с другой высотой, значит можно увеличить его высоту до высоты какого-либо столбика.</li></ul><ul id="11b2e807-d74f-802a-ae36-eac8428da081" class="bulleted-list"><li style="list-style-type:disc">Идейно будем решать задачу так: пройдем по столбцам и будем рассматривать их как тот, который является высотой прямоугольника. Тогда для него надо понять, как далеко мы можем отодвинуться “налево”, и, соответственно, “направо”.</li></ul><ul id="11b2e807-d74f-803c-bfeb-c10890664295" class="bulleted-list"><li style="list-style-type:disc">Но если делать это буквально как написано, то получится решение за O(n^2). Поэтому сначала надо для каждого столбца узнать, как далеко мы можем пройти “налево”. Получили подзадачу в виде: для каждого элемента найти первый слева такой, что он меньше текущего.<ul id="11b2e807-d74f-809d-b8f0-e4d610c685f8" class="bulleted-list"><li style="list-style-type:circle">Для этого заведем стек, будем проводить некую аналогию с прошлой задачей.</li></ul><ul id="11b2e807-d74f-801e-88c9-d433426ae029" class="bulleted-list"><li style="list-style-type:circle">Добавляем новый элемент туда. Но перед этим удаляем все те, которые уже не станут овтетом для будущих элементов (т.е. все те, которые больше текущего).</li></ul><ul id="11b2e807-d74f-805e-997b-d2fb30ba2612" class="bulleted-list"><li style="list-style-type:circle">Перед добавлением текущего элемента, но после удаления лишних наверху стека как раз останется индекс первого слева элемента (искомого).</li></ul></li></ul><ul id="11b2e807-d74f-80f5-9c0c-ee9efe87abaa" class="bulleted-list"><li style="list-style-type:disc">Проделаем аналогичную логику для элементов с правой стороны.</li></ul><ul id="11b2e807-d74f-8077-a152-ea2a9561f7e4" class="bulleted-list"><li style="list-style-type:disc">Теперь мы уже можем просто перебрать столбики, рассматривая очередной в качестве верхней границы прямоугольника.</li></ul><ul id="11b2e807-d74f-806b-8a7b-c31db7107a1a" class="bulleted-list"><li style="list-style-type:disc">*Важное замечение, что ответ может не помесится в int.</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="11b2e807-d74f-8008-9025-fffcffb3d9cf" class="code"><code class="language-C++">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;stack&gt;
+using namespace std;
+
+void solve() {
+    int n;
+    cin &gt;&gt; n;
+    vector&lt;int&gt; a(n), left(n), right(n);
+    for (int i = 0; i &lt; n; ++i) {
+        cin &gt;&gt; a[i];
+    }
+    stack&lt;int&gt; st;
+    for (int i = 0; i &lt; n; i++) {
+        while (!st.empty() &amp;&amp; a[st.top()] &gt;= a[i]) st.pop();
+        if (st.empty()) left[i] = -1;
+        else left[i] = st.top();
+        st.push(i);
+    }
+    while (!st.empty()) st.pop();
+    for (int i = n - 1; i &gt;= 0; i--) {
+        while (!st.empty() &amp;&amp; a[st.top()] &gt;= a[i]) st.pop();
+        if (st.empty()) right[i] = n;
+        else right[i] = st.top();
+        st.push(i);
+    }
+
+    long long ans = 0;
+    for (int i = 0; i &lt; n; i++) {
+        ans = max(ans, (long long)(right[i] - left[i] - 1) * a[i]);
+    }
+    cout &lt;&lt; ans;
+}
+
+int main() {
+    int t = 1;
+//    cin &gt;&gt; t;
+    while (t--) {
+        solve();
+    }
+    return 0;
+}</code></pre><hr id="11b2e807-d74f-8056-8d16-c7a4d9734b84"/><h3 id="11b2e807-d74f-8081-83aa-eadc677a10b1" class="">IV.H Обратная польская запись </h3><figure id="11b2e807-d74f-8023-8a7e-cdf534a75df2" class="image"><a href="VI%20Testing%201%20Key%20Tasks%2011b2e807d74f80df8868d9948b0304b5/image%208.png"><img style="width:708px" src="VI%20Testing%201%20Key%20Tasks%2011b2e807d74f80df8868d9948b0304b5/image%208.png"/></a></figure><ul id="11b2e807-d74f-8096-bdcd-ce4e6ad7a723" class="bulleted-list"><li style="list-style-type:disc">Буквально храним на стеке актуальные числа и выполняем операции при необходимости.</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="11b2e807-d74f-805f-9f4d-dc1d964b8b6c" class="code"><code class="language-C++">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;stack&gt;
+using namespace std;
+
+void solve() {
+    stack&lt;int&gt; st;
+    string str;
+    while (cin &gt;&gt; str) {
+        if (str == &quot;+&quot;) {
+            int x = st.top(); st.pop();
+            int y = st.top(); st.pop();
+            st.push(x + y);
+            continue;
+        }
+        if (str == &quot;-&quot;) {
+            int y = st.top(); st.pop();
+            int x = st.top(); st.pop();
+            st.push(x - y);
+            continue;
+        }
+        if (str == &quot;*&quot;) {
+            int x = st.top(); st.pop();
+            int y = st.top(); st.pop();
+            st.push(x * y);
+            continue;
+        }
+        st.push(stoi(str));
+    }
+    cout &lt;&lt; st.top() &lt;&lt; &#x27;\n&#x27;;
+}
+
+int main() {
+    int t = 1;
+//    cin &gt;&gt; t;
+    while (t--) {
+        solve();
+    }
+    return 0;
+}</code></pre><hr id="11b2e807-d74f-805d-9ad1-f04e09bfb707"/><h3 id="11b2e807-d74f-8040-86a6-e6e712e2dc14" class="">Ending</h3><p id="1222e807-d74f-80fc-b7f6-e29e7a03c4f7" class=""><mark class="highlight-gray"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>© Created by Anton Vitiuk 10.2024</mtext></mrow><annotation encoding="application/x-tex">© \text { Created by Anton Vitiuk 10.2024}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0833em;vertical-align:-0.1944em;"></span><span class="mord text"><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8889em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">c</span></span></span><span style="top:-3.1944em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body accent-full" style="left:0em;top:.2em;"><span class="mord">◯</span></span></span></span></span></span></span></span><span class="mord text"><span class="mord"> Created by Anton Vitiuk 10.2024</span></span></span></span></span></span><span>﻿</span></span></mark></p><p id="1222e807-d74f-8096-9978-ddfc4f9f58c7" class=""><a href="https://t.me/MrAnt1vit">telegram</a> <a href="https://vk.com/mrant1vit">vk</a> </p><p id="1222e807-d74f-80f3-beef-d282b774b467" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

@@ -1,0 +1,824 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>V Set. Map. And other.</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1182e807-d74f-806f-bc37-d1b0e093e556" class="page sans"><header><h1 class="page-title">V Set. Map. And other.</h1><p class="page-description"></p></header><div class="page-body"><nav id="1182e807-d74f-80b4-b4ee-ffaa2f286f84" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1182e807-d74f-807a-a80b-f15562dab305">Set</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1182e807-d74f-80ca-afc7-f54288e3cc11">Идея + описание</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1182e807-d74f-80a0-b1ea-cebdef88e595">Методы (Основные)</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1182e807-d74f-80c7-8f22-f453a3b6c546">Методы (с указателями)</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1192e807-d74f-8083-ae15-f033bccd49d3">Пример задачи (задача A)</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1192e807-d74f-803e-9ff3-f08589fe7e0f">Map</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1192e807-d74f-8098-a37c-ec405370193d">Идея + описание</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1192e807-d74f-8034-adc7-ead2f5dfa29d">Методы (Основные)</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1192e807-d74f-80b0-8d5d-e55aad8e645f">Методы (с указателями)</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1192e807-d74f-8049-beea-c3a058a888e2">Пример задачи (задача C)</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1192e807-d74f-8003-9ed6-dc51be37dda2">unordered_set, unordered_map</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1192e807-d74f-8032-8cf5-f664892b0192">Идея + описание</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1192e807-d74f-80d9-8e16-da89380618bd">unordered_set</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1192e807-d74f-801c-b942-fec9137ed1e1">unordered_map</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1192e807-d74f-80e7-b332-f5a8a2d57aec">multiset, multimap</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1192e807-d74f-80b3-bc56-ea1a3d635bfa">Идея + описание</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1192e807-d74f-8072-9b81-e6d6f4ef86a4">multiset</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1192e807-d74f-801b-8739-f2773b6afa77">multimap</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1192e807-d74f-8063-b731-cef6127c31c8">Ending</a></div></nav><hr id="1182e807-d74f-8040-b89b-cdd55c48e40e"/><h1 id="1182e807-d74f-807a-a80b-f15562dab305" class="">Set</h1><h3 id="1182e807-d74f-80ca-afc7-f54288e3cc11" class="">Идея + описание</h3><ul id="1182e807-d74f-8098-bd4e-d1d18c641696" class="bulleted-list"><li style="list-style-type:disc">Сет это по сути множество (как в математике). Туда элементы можно добавлять и удалять. Подробнее дальше</li></ul><ul id="1182e807-d74f-80ec-bcab-ff77d11cd1e9" class="bulleted-list"><li style="list-style-type:disc">Смысл его в том, что это работает быстро (почти все операции за O(1) или за O(log n)).</li></ul><ul id="1182e807-d74f-800d-953b-e34296db8cd8" class="bulleted-list"><li style="list-style-type:disc">Для использования нужна библиотека &lt;set&gt;.</li></ul><hr id="1182e807-d74f-8040-a256-f91943ce2ed2"/><h3 id="1182e807-d74f-80a0-b1ea-cebdef88e595" class="">Методы (Основные)</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1182e807-d74f-8037-b5a8-ed533318b323" class="code"><code class="language-C++">#include &lt;iostream&gt;
+#include &lt;set&gt;
+using namespace std;
+
+void solve() {
+    set&lt;int&gt; s;
+    set&lt;string&gt; sample = {&quot;aa&quot;, &quot;bb&quot;, &quot;cc&quot;};
+
+    for (int i = 0; i &lt; 10; i += 2)
+        s.insert(i);
+    // 0 2 4 6 8
+
+    cout &lt;&lt; s.size() &lt;&lt; &#x27;\n&#x27;;         // 5
+    cout &lt;&lt; s.empty() &lt;&lt; &#x27;\n&#x27;;        // false
+    s.erase(4);
+    s.erase(5);
+    s.clear();
+    cout &lt;&lt; s.contains(6) &lt;&lt; &#x27;\n&#x27;; // true
+    cout &lt;&lt; s.count(6) &lt;&lt; &#x27;\n&#x27;;    // 1
+    // s.contains(x) &lt;=&gt; s.count(x) == 0
+}
+
+int main() {
+    solve();
+    return 0;
+}</code></pre><blockquote id="1182e807-d74f-80c7-9b15-ff285ce07211" class="">set&lt;int&gt; s;</blockquote><p id="1182e807-d74f-8013-a360-fbb257822ce1" class="">Создание сета (аналогично вектору указываем тип элементов внутри).</p><blockquote id="1182e807-d74f-80f7-8808-dc8116f95396" class="">set&lt;string&gt; sample = {&quot;aa&quot;, &quot;bb&quot;, &quot;cc&quot;};</blockquote><p id="1182e807-d74f-8009-b26a-e8d459d60e22" class="">Сет можно создать от любого типа, где их можно сравнивать.<br/>Также можно сразу задать сет перечислением элементов.<br/></p><blockquote id="1182e807-d74f-8029-ba5c-edd3049bfa96" class="">s.insert(i);</blockquote><p id="1182e807-d74f-801f-8a13-dbc6a7597af2" class="">Добавление элемента в сет. Работает за O(log n), где n - размер сета на момент добавления.</p><ul id="1182e807-d74f-801b-9912-fd8e789bc965" class="bulleted-list"><li style="list-style-type:disc">Откуда берется log n?<br/>Давайте представим сет как массив (в реальности это не совсем так), попробуем найти место, где будет лежать наш новый элемент. Для этого воспользуемся бинарным поиском.<br/></li></ul><ul id="1182e807-d74f-80f3-9824-ea5af1f8dcb0" class="bulleted-list"><li style="list-style-type:disc">Если вы не знаете что это, то вот обьяснение на пальцах: смотрим на элемент в центре массива. Если он меньше добавляемого, то значит новое место лежит правее (аналогично, если наоборот). Так мы отсекли половину массива.Сделав тоже самое на оставшейся половине, останется четверть. Таким образом после каждой проверки мы уменьшаем число возможных позиций вдвое. А значит надо <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mn>2</mn></msub><mi>n</mi></mrow><annotation encoding="application/x-tex">\log_2 n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9386em;vertical-align:-0.2441em;"></span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.207em;"><span style="top:-2.4559em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2441em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">n</span></span></span></span></span><span>﻿</span></span> операций.</li></ul><blockquote id="1182e807-d74f-80fd-af6c-e8f4bca69cc5" class="">s.size();</blockquote><p id="1182e807-d74f-80e6-b1b6-fa5bc9436096" class="">Узнаем размер сета. <br/>Асимптотика: O(1).<br/></p><blockquote id="1182e807-d74f-800f-af2b-f03bf05ceb20" class="">s.empty();</blockquote><p id="1182e807-d74f-8026-a967-f6ac2d0fe199" class="">Проверяем, пустой ли сет. По сути тоже самое, что s.size() == 0.<br/>Асимптотика: O(1).<br/></p><blockquote id="1182e807-d74f-80d0-88ba-dd8e689a18e4" class="">s.erase(4);</blockquote><p id="1182e807-d74f-8042-8043-f7ba97e3b20c" class="">Удаляем элемент по его значению.<br/>Асимптотика O(log n). Аналогично .insert(x).<br/></p><blockquote id="1182e807-d74f-80fd-8e62-c89cd3eeb4f2" class="">s.erase(5);</blockquote><p id="1182e807-d74f-8082-a8dc-e2d90e1be1a6" class="">При попытке удаления элемента, которого нет в сете, ничего не произойдет (не будет RE).</p><blockquote id="1182e807-d74f-80b0-be44-ed4df919b1f5" class="">s.clear();</blockquote><p id="1182e807-d74f-80ee-98bf-e48a2591f723" class="">Полностью очищаем сет.<br/>Асимптотика O(n). Т.к. надо пройтись по всем элементам и удалить.<br/></p><blockquote id="1182e807-d74f-8037-a0ce-f3eb695648c3" class="">s.contains(6);</blockquote><p id="1182e807-d74f-80e3-81e3-f5d02b394e47" class="">Проверка, что в сете лежит некоторый элемент. Возвращает true/false.<br/>Асимптотика O(log n). Аналогично добавлению.<br/></p><blockquote id="1182e807-d74f-8091-97c0-f0591ca9db29" class="">s.count(6);</blockquote><p id="1182e807-d74f-806e-9472-c8b3164ba9ba" class="">Считаем кол-во элементов в сете. По сути всегда 0 или 1.</p><ul id="1182e807-d74f-8044-b509-d722b4094998" class="bulleted-list"><li style="list-style-type:disc">Более полезная функция в multiset’е.</li></ul><hr id="1182e807-d74f-8052-9c43-c6c828d1ec1e"/><h3 id="1182e807-d74f-80c7-8f22-f453a3b6c546" class="">Методы (с указателями)</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1182e807-d74f-803b-a980-e1a47889692b" class="code"><code class="language-C++">#include &lt;iostream&gt;
+#include &lt;set&gt;
+using namespace std;
+
+void solve() {
+    set&lt;int&gt; s;
+    for (int i = 0; i &lt; 10; i += 2)
+        s.insert(i);
+    // 0 2 4 6 8
+    
+    s.begin(); s.end();
+    cout &lt;&lt; *s.find(4) &lt;&lt; &#x27;\n&#x27;;
+    cout &lt;&lt; *s.lower_bound(4) &lt;&lt; &#x27;\n&#x27;; // 4
+    cout &lt;&lt; *s.upper_bound(4) &lt;&lt; &#x27;\n&#x27;; // 6
+    
+    s.erase(s.begin());
+    s.erase(s.find(4));
+    s.erase(s.upper_bound(6));
+}
+
+int main() {
+    solve();
+    return 0;
+}</code></pre><blockquote id="1182e807-d74f-80c4-bc79-cc0c356cc7ee" class="">s.begin();<br/>s.end();<br/></blockquote><p id="1182e807-d74f-802a-9c1e-ef32f07d9758" class="">Получаем итераторы (указатели) как и в остальных контейнерах.</p><ul id="1182e807-d74f-8007-a595-e0c70b5726a7" class="bulleted-list"><li style="list-style-type:disc">Напоминание. begin() указывает на первый элемент, а end() <strong>за</strong> последний.</li></ul><p id="1182e807-d74f-809c-86c2-d97faef657c9" class="">Асимптотика: O(1).</p><blockquote id="1182e807-d74f-8069-8f27-ccef3cbda5a5" class="">s.find(4);</blockquote><p id="1182e807-d74f-8093-a1c2-d0955852b7c7" class="">Получаем указатель на элемент сета. Если такого элемента нет, то получаем .end().<br/>Асимптотика: O(log n).<br/></p><ul id="1182e807-d74f-80a4-8008-d6175945fc3b" class="bulleted-list"><li style="list-style-type:disc">Напоминание: итератор можно разыменовать с помощью *.</li></ul><blockquote id="1182e807-d74f-807e-97aa-c9e035536bd9" class="">s.lower_bound(4);</blockquote><p id="1182e807-d74f-80c6-8f51-ecd8591cefee" class="">Получаем указатель на первый элемент сета, который <strong>больше или равен </strong>искомого.<br/>Асимптотика: O(log n). <br/></p><blockquote id="1182e807-d74f-8097-bb76-dd03e1fa43af" class="">s.upper_bound(4);</blockquote><p id="1182e807-d74f-80f6-aa89-f5de50524fbe" class="">Получаем указатель на первый элемент сета, который <strong>строго больше </strong>искомого.<br/>Асимптотика: O(log n).<br/></p><blockquote id="1182e807-d74f-80c2-bcc8-d7aa7bd66133" class="">s.erase(s.begin());</blockquote><p id="1182e807-d74f-8049-8967-fddb53e060a7" class="">Удаление по указателю. Здесь удаление минимального элемента.<br/>Асимпотика: O(log n).<br/></p><blockquote id="1182e807-d74f-80e5-8864-ccfae8933027" class="">s.erase(s.find(4));</blockquote><p id="1182e807-d74f-80ce-9f3f-f9e0961dc566" class="">Удаление по указателю. Здесь удаление элемента по занчению (больше нужно в multiset’e).<br/>Асимпотика: O(log n).<br/></p><blockquote id="1182e807-d74f-80b7-985e-cb7b1209b029" class="">s.erase(s.upper_bound(6));</blockquote><p id="1182e807-d74f-8068-afc4-c44ee514442f" class="">Удаление по указателю. Здесь удаление первого элемента больше заданого.<br/>Асимпотика: O(log n).<br/></p><hr id="1192e807-d74f-801f-b1c2-db0e287637d7"/><h3 id="1192e807-d74f-8083-ae15-f033bccd49d3" class="">Пример задачи (задача A)</h3><figure id="1192e807-d74f-8009-b6c0-d27c9049bc5b" class="image"><a href="V%20Set%20Map%20And%20other%201182e807d74f806fbc37d1b0e093e556/image.png"><img style="width:607px" src="V%20Set%20Map%20And%20other%201182e807d74f806fbc37d1b0e093e556/image.png"/></a></figure><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1192e807-d74f-80b9-88de-c59b7393953d" class="code"><code class="language-C++">#include &lt;iostream&gt;
+#include &lt;set&gt;
+
+using namespace std;
+
+void solve() {
+    set&lt;int&gt; s;
+    int n;
+    while (cin &gt;&gt; n) {
+        s.insert(n);
+    }
+    cout &lt;&lt; s.size() &lt;&lt; &#x27;\n&#x27;;
+}
+
+int main() {
+    solve();
+    return 0;
+}</code></pre><ul id="1192e807-d74f-80c3-92d9-cc2507b0fc7c" class="bulleted-list"><li style="list-style-type:disc">Если мы добавим все элементы в сет, то повторные просто не добавятся, а значит его размер будет в точности равен числу уникальных элементов.</li></ul><hr id="1192e807-d74f-8019-aa7d-fcf5ff7f47a0"/><h1 id="1192e807-d74f-803e-9ff3-f08589fe7e0f" class="">Map</h1><h3 id="1192e807-d74f-8098-a37c-ec405370193d" class="">Идея + описание</h3><ul id="1192e807-d74f-80bf-b633-fe649f0a8c98" class="bulleted-list"><li style="list-style-type:disc">В какой-то степени map это сет пар. Но в этих парах первый элемент это “ключ”, а второй “значение”. То есть можно обращаться как по индексу в векторе, но это не в чистом виде индекс. По нему можно получить значение той пары, в которой первый элемент есть искомый ключ.</li></ul><ul id="1192e807-d74f-808d-8864-ca9704aab28f" class="bulleted-list"><li style="list-style-type:disc">Смысл его в том, что это работает быстро (почти все операции за O(1) или за O(log n)).</li></ul><ul id="1192e807-d74f-8007-b464-e1444b868c4c" class="bulleted-list"><li style="list-style-type:disc">Для использования нужна библиотека &lt;map&gt;.</li></ul><hr id="1192e807-d74f-80c9-9ac1-ddbcbce07859"/><h3 id="1192e807-d74f-8034-adc7-ead2f5dfa29d" class="">Методы (Основные)</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1192e807-d74f-8078-8b92-d8ecbb3c6148" class="code"><code class="language-C++">#include &lt;iostream&gt;
+#include &lt;map&gt;
+using namespace std;
+
+void solve() {
+    map&lt;string, int&gt; mp;
+
+    mp[&quot;abc&quot;] = 1;
+    cout &lt;&lt; mp[&quot;aaa&quot;] &lt;&lt; &#x27;\n&#x27;;
+    cout &lt;&lt; mp.count(&quot;abc&quot;) &lt;&lt; &#x27;\n&#x27;;
+    cout &lt;&lt; mp.contains(&quot;abc&quot;) &lt;&lt; &#x27;\n&#x27;;
+    mp.clear();
+    cout &lt;&lt; mp.empty() &lt;&lt; &#x27;\n&#x27;;
+    cout &lt;&lt; mp.size() &lt;&lt; &#x27;\n&#x27;;
+    cout &lt;&lt; mp.at(&quot;abc&quot;) &lt;&lt; &#x27;\n&#x27;;
+    mp.erase(&quot;aaa&quot;);
+    mp.insert({&quot;bbb&quot;, 1});
+}
+
+int main() {
+    solve();
+    return 0;
+}</code></pre><blockquote id="1192e807-d74f-8080-95a0-fefa0fffd5a7" class="">map&lt;string, int&gt; mp;</blockquote><p id="1192e807-d74f-80a8-bec7-da7d710bd777" class="">Указываем тип ключа и тип значений map’а. </p><blockquote id="1192e807-d74f-802a-8ff8-c9722cd5a9fc" class="">mp[”abc”] = 1;</blockquote><p id="1192e807-d74f-8044-83fe-fbcc3e9a2934" class="">Задаем значение элемента по ключу.<br/>Асимтпотика: O(log n).<br/></p><blockquote id="1192e807-d74f-806e-bdfd-e9366b1ffa91" class="">mp[”aaa”];</blockquote><p id="1192e807-d74f-809b-9f46-cb6f609874e9" class="">Если элемента не было, то он будет создан и заполнен значением по умолчанию.</p><blockquote id="1192e807-d74f-8082-b531-e9db7e29dbe4" class="">mp.count(”abc”);</blockquote><p id="1192e807-d74f-8096-9d9c-d5b1b273ee87" class=""><a href="V%20Set%20Map%20And%20other%201182e807d74f806fbc37d1b0e093e556.html">Аналогично сету,</a> узнаем кол-во элементов с искомым ключом (тоже 0 или 1 и более применимо в multimap’e).<br/>Асимптотика: O(log n).<br/></p><blockquote id="1192e807-d74f-80d3-8e8c-eb67ca5b0084" class="">mp.contains(”abc”);</blockquote><p id="1192e807-d74f-8078-9953-c67eeb8acab8" class=""><a href="V%20Set%20Map%20And%20other%201182e807d74f806fbc37d1b0e093e556.html">Аналогично сету,</a> проверка на то, что по такому ключу существует элемент.<br/>Асимптотика: O(log n).<br/></p><blockquote id="1192e807-d74f-800b-b3f3-c66fdc7d0bba" class="">mp.clear();</blockquote><p id="1192e807-d74f-803f-8147-c534881d71c6" class=""><a href="V%20Set%20Map%20And%20other%201182e807d74f806fbc37d1b0e093e556.html">Аналогично сету,</a> полностью очищаем контейнер.<br/>Асимптотика: O(n). <br/></p><blockquote id="1192e807-d74f-808f-9908-daa615fa1269" class="">mp.empty();</blockquote><p id="1192e807-d74f-80d6-8991-cd16b4538332" class=""><a href="V%20Set%20Map%20And%20other%201182e807d74f806fbc37d1b0e093e556.html">Аналогично сету, </a>проверяем словарь на пустоту.<br/>Асимптотика: O(1).<br/></p><blockquote id="1192e807-d74f-805c-b8dc-c6bb4474124b" class="">mp.size();</blockquote><p id="1192e807-d74f-804d-919f-c688d83d7605" class=""><a href="V%20Set%20Map%20And%20other%201182e807d74f806fbc37d1b0e093e556.html">Аналогично сету, </a>получаем размер контейнера.<br/>Асимптотика: O(1).<br/></p><blockquote id="1192e807-d74f-804f-ae3b-d109ac2090fc" class="">mp.at(”abc”);</blockquote><p id="1192e807-d74f-8039-a71e-cdee550253fc" class="">Если элемент по этому ключу есть, то работает также как mp[”abc”], а если нет, то получаем RE.<br/>Асимптотика: O(log n). <br/></p><blockquote id="1192e807-d74f-80a6-9be1-fe12e20d72cc" class="">mp.insert({&quot;bbb&quot;, 1});</blockquote><p id="1192e807-d74f-80cb-a101-c8d52738feb5" class="">Добавляем пару “ключ-значение” в словарь. По сути тоже самое, что mp[”bbb”]=1; Более актуально для multimap’а.</p><blockquote id="1192e807-d74f-8005-872a-c3a3c2145daf" class="">mp.erase(&quot;aaa&quot;);</blockquote><p id="1192e807-d74f-80ea-b35a-cf41bc1e2dc5" class=""><a href="V%20Set%20Map%20And%20other%201182e807d74f806fbc37d1b0e093e556.html">Аналогично сету,</a> удаляем пару по ключу (т.е. по первому элементу пары).<br/>Асимптотика: O(log n).<br/></p><hr id="1192e807-d74f-801a-ad38-d685247b4a59"/><h3 id="1192e807-d74f-80b0-8d5d-e55aad8e645f" class="">Методы (с указателями)</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1192e807-d74f-809d-b840-fc92ca4b53ab" class="code"><code class="language-C++">#include &lt;iostream&gt;
+#include &lt;map&gt;
+using namespace std;
+
+void solve() {
+    map&lt;int, int&gt; mp;
+
+    for (int i = 0; i &lt;= 10; i += 2) {
+        mp[i] = i / 2;
+    }
+    // 0 - 0
+    // 2 - 1
+    // 4 - 2
+    // 6 - 3
+    // 8 - 4
+    // 10 - 5
+
+    mp.begin(); mp.end();
+    cout &lt;&lt; mp.lower_bound(4)-&gt;second;
+    cout &lt;&lt; mp.upper_bound(4)-&gt;second;
+    mp.erase(mp.begin());
+    cout &lt;&lt; mp.find(2)-&gt;second;
+}
+
+int main() {
+    solve();
+    return 0;
+}</code></pre><blockquote id="1192e807-d74f-8042-aa50-fdeea721e7bc" class="">mp.begin();<br/>mp.end();<br/></blockquote><p id="1192e807-d74f-80ad-a379-c953ef09fcc7" class=""><a href="V%20Set%20Map%20And%20other%201182e807d74f806fbc37d1b0e093e556.html">Аналогично сету.</a> Но помним, что получаем указатель на пару, а не на значение.<br/>Асимптотика: O(1).<br/></p><ul id="1192e807-d74f-80a7-b872-d78bb19cb292" class="bulleted-list"><li style="list-style-type:disc">Так как указатель на пару, то по нему можно получить конкретное поле через -&gt;.</li></ul><blockquote id="1192e807-d74f-8005-9bb4-d4035b2a6221" class="">mp.lower_bound(4);</blockquote><p id="1192e807-d74f-8010-904f-cb41e0136673" class=""><a href="V%20Set%20Map%20And%20other%201182e807d74f806fbc37d1b0e093e556.html">Аналогично сету,</a> получаем указатель на первую пару, в которой ключ не меньше искомого.<br/>Асимптотика: O(log n).<br/></p><blockquote id="1192e807-d74f-8020-8255-eac23460567d" class="">mp.upper_bound(4);</blockquote><p id="1192e807-d74f-80f7-8412-d97d9383949f" class=""><a href="V%20Set%20Map%20And%20other%201182e807d74f806fbc37d1b0e093e556.html">Аналогично сету,</a> получаем указатель не первую пару, где ключ сторго больше искомого.<br/>Асимптотика: O(log n);<br/></p><blockquote id="1192e807-d74f-800d-977e-e96ccd343f6b" class="">mp.erase(mp.begin());</blockquote><p id="1192e807-d74f-8072-812f-d270ac2d689c" class=""><a href="V%20Set%20Map%20And%20other%201182e807d74f806fbc37d1b0e093e556.html">Аналогично сету,</a> можно удалять по указателю на пару.<br/>Асимптотика O(log n);<br/></p><hr id="1192e807-d74f-8044-83aa-e10044728dec"/><h3 id="1192e807-d74f-8049-beea-c3a058a888e2" class="">Пример задачи (задача C)</h3><figure id="1192e807-d74f-8048-a6e6-df01da49458e" class="image"><a href="V%20Set%20Map%20And%20other%201182e807d74f806fbc37d1b0e093e556/image%201.png"><img style="width:613px" src="V%20Set%20Map%20And%20other%201182e807d74f806fbc37d1b0e093e556/image%201.png"/></a></figure><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1192e807-d74f-80cd-83ce-f8141645fb4c" class="code"><code class="language-C++">#include &lt;iostream&gt;
+#include &lt;set&gt;
+#include &lt;vector&gt;
+#include &lt;map&gt;
+
+using namespace std;
+
+void solve() {
+    map&lt;string, int&gt; cnt;
+
+    string str;
+    while (cin &gt;&gt; str) {
+        cnt[str]++;
+    }
+
+    string res=cnt.begin()-&gt;first;
+//    string res=&quot;&quot;;
+    for (auto it: cnt) {
+        if (it.second &gt; cnt[res]) res=it.first;
+    }
+    cout &lt;&lt; res;
+}
+
+int main() {
+    solve();
+    return 0;
+}</code></pre><ul id="1192e807-d74f-8013-8f5d-ff55c18c7e9b" class="bulleted-list"><li style="list-style-type:disc">Учтем, что перебирая ключи в парах (или сами пары), то они будут идти в порядке возрастания.</li></ul><ul id="1192e807-d74f-8026-aa4a-d4861138edd7" class="bulleted-list"><li style="list-style-type:disc">Также рекомендую вспомнить что такое for(auto … : …) {}</li></ul><hr id="1192e807-d74f-8098-866d-eaa362c24ffe"/><h1 id="1192e807-d74f-8003-9ed6-dc51be37dda2" class="">unordered_set, unordered_map</h1><h3 id="1192e807-d74f-8032-8cf5-f664892b0192" class="">Идея + описание</h3><ul id="1192e807-d74f-80a2-938f-f76222e9d6ba" class="bulleted-list"><li style="list-style-type:disc">По сути это те же set и map, но элементы в них хранятся не по возрастанию. Благодаря этому многие операции работают за O(1), но с большой контсантой.</li></ul><ul id="1192e807-d74f-80dd-8861-fe1f4126f984" class="bulleted-list"><li style="list-style-type:disc">При этом многие методы, основнные на отсортированности, не доступны для них.</li></ul><ul id="1192e807-d74f-803b-8393-ee3edde4ced9" class="bulleted-list"><li style="list-style-type:disc">Нужны библиотеки &lt;unordered_map&gt; и &lt;unordered_set&gt;</li></ul><hr id="1192e807-d74f-8024-9ca9-d87bc0f7ef1e"/><h3 id="1192e807-d74f-80d9-8e16-da89380618bd" class="">unordered_set</h3><ul id="1192e807-d74f-80eb-aeb0-d2076d7f1e08" class="bulleted-list"><li style="list-style-type:disc">Почти все методы работают аналогично сету, если не указано обратного.</li></ul><blockquote id="1192e807-d74f-80f8-86f3-e0b584578e2e" class="">unordered_set&lt;int&gt; s;</blockquote><blockquote id="1192e807-d74f-802c-ac76-df0ddb88d0a6" class="">set&lt;int&gt; sample = {1, 2, 3};</blockquote><blockquote id="1192e807-d74f-8054-834d-f24493891f6e" class="">s.insert(i); → O(1)</blockquote><p id="1192e807-d74f-80ac-a83c-f5ea2e6ed6b0" class="">Добавление элемента в сет. Работает за O(1), но у контсанта этого метода настолько велика, что в целом сопоставима с O(log n) в задачах. Так что в зависимости от ситуацаций можно попробовать заменить set на unordered_set и, возмонжо, будет работать быстрее.</p><blockquote id="1192e807-d74f-8003-ae6f-f851d3d3eb19" class="">s.size();</blockquote><blockquote id="1192e807-d74f-8034-9b6a-f3fa18027ee1" class="">s.empty();</blockquote><blockquote id="1192e807-d74f-8095-ad47-d63c38a1d04c" class="">s.erase(4);  → O(1)</blockquote><blockquote id="1192e807-d74f-80fd-bcae-d94dbc29bbab" class="">s.clear();</blockquote><blockquote id="1192e807-d74f-8038-aa04-e56176651381" class="">s.contains(6); → O(1)</blockquote><blockquote id="1192e807-d74f-8049-873e-d10396838c5a" class="">s.count(6); → O(1)</blockquote><blockquote id="1192e807-d74f-80be-949a-fa4732c66fea" class="">s.begin();<br/>s.end();<br/></blockquote><blockquote id="1192e807-d74f-80eb-803d-e03626c66b71" class="">s.find(4); → O(1)</blockquote><blockquote id="1192e807-d74f-801e-9391-c80f7f46acd1" class="">!!! s.lower_bound(4); - <strong>Такого нет</strong></blockquote><blockquote id="1192e807-d74f-8025-b9b9-fe194420f30b" class="">!!! s.upper_bound(4); - <strong>Такого нет</strong></blockquote><blockquote id="1192e807-d74f-8035-8f62-f1a68e057ef7" class="">s.erase(s.begin()); → O(1)</blockquote><hr id="1192e807-d74f-8022-9bab-c0dbd53a8830"/><h3 id="1192e807-d74f-801c-b942-fec9137ed1e1" class="">unordered_map</h3><ul id="1192e807-d74f-80d5-a117-cb47b7b30556" class="bulleted-list"><li style="list-style-type:disc">Почти все методы работают аналогично сету, если не указано обратного.</li></ul><blockquote id="1192e807-d74f-80a0-8a35-c0c8d06087c3" class="">map&lt;string, int&gt; mp;</blockquote><blockquote id="1192e807-d74f-80a5-b433-ed63bba2c44d" class="">mp[”abc”] = 1; → O(1)</blockquote><blockquote id="1192e807-d74f-80ad-b0ee-ca8654311399" class="">mp.count(”abc”); → O(1)</blockquote><blockquote id="1192e807-d74f-8085-820d-d5f55cc428b0" class="">mp.contains(”abc”); → O(1)</blockquote><blockquote id="1192e807-d74f-801d-b4f7-fab3129df6c5" class="">mp.clear();</blockquote><blockquote id="1192e807-d74f-80c6-9428-f36d6f470910" class="">mp.empty();</blockquote><blockquote id="1192e807-d74f-8067-acde-fbf66ba19823" class="">mp.size();</blockquote><blockquote id="1192e807-d74f-800f-bcc1-eb3ef5087234" class="">mp.at(”abc”);</blockquote><blockquote id="1192e807-d74f-8039-af89-e4e2f125bcb9" class="">mp.insert({&quot;bbb&quot;, 1});</blockquote><blockquote id="1192e807-d74f-80c5-9696-e0f40f2edfcb" class="">mp.erase(&quot;aaa&quot;); → O(1)</blockquote><blockquote id="1192e807-d74f-806a-aca7-ee2003551302" class="">mp.begin();<br/>mp.end();<br/></blockquote><blockquote id="1192e807-d74f-80ff-9a2a-d4a056436e12" class="">!!! mp.lower_bound(4); - <strong>Такого нет</strong></blockquote><blockquote id="1192e807-d74f-8086-939f-e5a8fe703aa6" class="">!!! mp.upper_bound(4); - <strong>Такого нет</strong></blockquote><blockquote id="1192e807-d74f-802d-a7e2-ee5217889ee0" class="">mp.erase(mp.begin());</blockquote><hr id="1192e807-d74f-8055-9797-d3a7a001cbff"/><h1 id="1192e807-d74f-80e7-b332-f5a8a2d57aec" class="">multiset, multimap</h1><h3 id="1192e807-d74f-80b3-bc56-ea1a3d635bfa" class="">Идея + описание</h3><ul id="1192e807-d74f-80c0-b08b-cb2e67fd0ab4" class="bulleted-list"><li style="list-style-type:disc">Отличие от сета и мэпа в том, что можно хранить по несколько элементов / пар элементов. </li></ul><ul id="1192e807-d74f-800b-9eea-d14a53c71473" class="bulleted-list"><li style="list-style-type:disc">При этом многие методы, основнные на отсортированности, не доступны для них.</li></ul><ul id="1192e807-d74f-8068-bd53-c4367cef2cf1" class="bulleted-list"><li style="list-style-type:disc">Нужны библиотеки &lt;set&gt; и &lt;map&gt;</li></ul><hr id="1192e807-d74f-806a-9204-f825e5e64e61"/><h3 id="1192e807-d74f-8072-9b81-e6d6f4ef86a4" class="">multiset</h3><ul id="1192e807-d74f-80e9-9699-f5cee8a5f31d" class="bulleted-list"><li style="list-style-type:disc">Почти все методы работают аналогично сету, если не указано обратного.</li></ul><blockquote id="1192e807-d74f-8012-b092-d924501a5d1c" class="">multiset&lt;int&gt; s;</blockquote><blockquote id="1192e807-d74f-802c-9ff4-e424373b6613" class="">set&lt;int&gt; sample = {1, 1, 1}; - Элементы могут повторяться</blockquote><blockquote id="1192e807-d74f-80f7-8420-ed310fe73b21" class="">s.insert(i); - Элементы могут повторяться.</blockquote><blockquote id="1192e807-d74f-80fd-98c1-ef23f598209a" class="">s.size();</blockquote><blockquote id="1192e807-d74f-8076-8f51-ce1442c73c96" class="">s.empty();</blockquote><blockquote id="1192e807-d74f-8030-9e7a-c4ec2302e7c5" class="">s.erase(4);  - Удаляет все элементы с этим хначением, а не только одно.</blockquote><blockquote id="1192e807-d74f-8004-9db8-d6f678125335" class="">s.clear();</blockquote><blockquote id="1192e807-d74f-80d6-bf6a-eab7b4dfcbaa" class="">s.contains(6);</blockquote><blockquote id="1192e807-d74f-8076-8321-f0c6fa288455" class="">s.count(6); - Здесь число элементов может быть больше 1.</blockquote><blockquote id="1192e807-d74f-80b5-b7af-c715381f3d98" class="">s.begin();<br/>s.end();<br/></blockquote><blockquote id="1192e807-d74f-8008-82a2-d842c9a06721" class="">s.find(4); - Получаем указатель на один из элементов с таким значением.</blockquote><blockquote id="1192e807-d74f-802b-a94a-f62d98264dc9" class="">s.lower_bound(4);</blockquote><blockquote id="1192e807-d74f-80e2-a5b3-db8550b21720" class="">s.upper_bound(4);</blockquote><blockquote id="1192e807-d74f-802a-9b68-f34b0a8a8aa6" class="">s.erase(s.begin()); - Как раз чтобы удалить только 1 элемент из мультисета необходимо использовать удаление по указателю.</blockquote><hr id="1192e807-d74f-80c1-815a-f884caa5538e"/><h3 id="1192e807-d74f-801b-8739-f2773b6afa77" class="">multimap</h3><ul id="1192e807-d74f-805d-9d6e-fccb62a40210" class="bulleted-list"><li style="list-style-type:disc">Почти все методы работают аналогично сету, если не указано обратного.</li></ul><blockquote id="1192e807-d74f-803c-aca0-ceac0d24cafe" class="">multimap&lt;string, int&gt; mp;</blockquote><blockquote id="1192e807-d74f-80d4-b828-f775d9bd6fcb" class="">!!! mp[”abc”] = 1; - <strong>Такого нет</strong></blockquote><blockquote id="1192e807-d74f-80ef-99a6-f23813a5a595" class="">mp.count(”abc”); - Число пар может быть больше 1.</blockquote><blockquote id="1192e807-d74f-8023-8114-db58f79204e8" class="">mp.contains(”abc”);</blockquote><blockquote id="1192e807-d74f-80c2-a4ef-ea1e9c0e2463" class="">mp.clear();</blockquote><blockquote id="1192e807-d74f-8057-95c0-e8ac80b63b74" class="">mp.empty();</blockquote><blockquote id="1192e807-d74f-80b9-befc-df54d5e8895a" class="">mp.size();</blockquote><blockquote id="1192e807-d74f-805f-9931-d5e88c440b21" class="">!!! mp.at(”abc”); - <strong>Такого нет</strong></blockquote><blockquote id="1192e807-d74f-8005-87a9-df2783731efb" class="">mp.insert({&quot;bbb&quot;, 1}); - Т.к. нельзя обращаться по [], то добавлять можно только так.</blockquote><blockquote id="1192e807-d74f-80ff-9391-d665d8689fad" class="">mp.erase(&quot;aaa&quot;); - Удаление всех элементов с таким ключом.</blockquote><blockquote id="1192e807-d74f-80f3-aa36-c6ffbb2f84aa" class="">mp.begin();<br/>mp.end();<br/></blockquote><blockquote id="1192e807-d74f-80da-869e-e56cf4c70d3b" class="">mp.lower_bound(4);</blockquote><blockquote id="1192e807-d74f-80f7-8971-d77c5f2ba10e" class="">mp.upper_bound(4);</blockquote><blockquote id="1192e807-d74f-8093-9684-f9bc591f59fc" class="">mp.erase(mp.begin()); - Удаление по указателю позволяет удалить один элемент (а ведь значения в парах могут быть разные).</blockquote><hr id="1192e807-d74f-80fc-96cc-d5c5b04427f7"/><h1 id="1192e807-d74f-8063-b731-cef6127c31c8" class="">Ending</h1><ul id="1192e807-d74f-8061-b28c-c12d5e416227" class="bulleted-list"><li style="list-style-type:disc">Еще есть unordered_multiset и unordered_multimap. По сути это обьединение соответствующих типов. При желании можете ознакомиться в интернете.</li></ul><p id="1222e807-d74f-80e1-a1c4-d9e3d7dd1994" class=""><mark class="highlight-gray"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>© Created by Anton Vitiuk 10.2024</mtext></mrow><annotation encoding="application/x-tex">© \text { Created by Anton Vitiuk 10.2024}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0833em;vertical-align:-0.1944em;"></span><span class="mord text"><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8889em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">c</span></span></span><span style="top:-3.1944em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body accent-full" style="left:0em;top:.2em;"><span class="mord">◯</span></span></span></span></span></span></span></span><span class="mord text"><span class="mord"> Created by Anton Vitiuk 10.2024</span></span></span></span></span></span><span>﻿</span></span></mark></p><p id="1222e807-d74f-8079-8a77-ca51e09a1210" class=""><a href="https://t.me/MrAnt1vit">telegram</a> <a href="https://vk.com/mrant1vit">vk</a> </p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
